@@ -48,6 +48,7 @@ export class ProjectPage{
         await expect(checkboxes.nth(i)).toBeChecked();
         }
     }
+    
 
     async scrollProjectListToTop() {
         await this.page.locator('.list-view__tbody').evaluate(el => {

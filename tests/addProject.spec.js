@@ -3,6 +3,7 @@ import { LogInPage } from '../pages/logInPage';
 import { credentials } from '../testData/credentials';
 import { NavigationPage } from '../pages/navigationPage';
 import { ProjectPage } from '../pages/project';
+import { staticdata } from '../testData/staticdata';
 
 let browser;
 let context;
@@ -32,7 +33,7 @@ test.describe('Add Project', () => {
         })
         
     test('add-project-with-data', async ({},testInfo) => {
-        const {projectName,companySearch,location} = envData
+        const {projectName,companySearch,location} = staticdata
         await navmenu.goToPage('Projects')
         await expect(page).toHaveURL(`${testInfo.project.use.baseURL}`+'/firm/projects/gridview')
         await projectpage.clickAddProject();
