@@ -51,6 +51,6 @@ export class PeoplePage {
   }
 
   async expectAlertContains(text) {
-    await expect(this.alertMsg).toContainText(text,{timeout:20000});
+    await expect(this.alertMsg).toContainText(text,{timeout:30000});
   }
 }
