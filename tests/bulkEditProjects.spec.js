@@ -13,8 +13,7 @@ let navmenu;
 let envData;
 let projectpage;
 
-
-test.describe('Add Project', () => {
+test.describe('bulk edit project', () => {
     test.beforeAll(async()=>{
         browser = await chromium.launch({ headless: false})
         context = await browser.newContext()
@@ -31,16 +30,18 @@ test.describe('Add Project', () => {
         await loginpage.selectFirm(firmname)
         })
         
-    test('add-project-with-data', async ({},testInfo) => {
+    test('add country in bulk', async ({},testInfo) => {
+        const {serachProjectName} = staticdata
         projectpage = new ProjectPage(page)
-        const {projectName,companySearch,location} = staticdata
         await navmenu.goToPage('Projects')
         await expect(page).toHaveURL(`${testInfo.project.use.baseURL}`+'/firm/projects/gridview')
-        await projectpage.clickAddProject();
-        await projectpage.fillProjectForm(projectName,companySearch,location);
-        await projectpage.submitAddProjectForm();
-        await expect(page.locator('.alert-message > p')).toContainText('successfully created');
-    });
+        await projectpage.searchProject(serachProjectName)
+        await projectpage.selectFirstNProjects(3)
+        await projectpage.bulkEdit()
+        await projectpage.bulkUpdateSave('country')        
+        await expect(page.locator('.alert-message > p')).toContainText('We are working on your changes',{timeout:10000})
+        await projectpage.closeBulkEditModal()
+    })
 
     test.afterAll(async({},testInfo) =>{
         //logout

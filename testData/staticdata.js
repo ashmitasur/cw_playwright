@@ -14,7 +14,8 @@ export const staticdata = {
     companyDetails: "This company have been added by cypress automation script.",
     companySubtitle: "Cypress subtitle",
     taskName: "Cypress Task",
-    projectName: "Senior Data Liaison",
+    serachProjectName: "Senior Data Liaison",
+    projectCountry: 'India',
     schoolName: "Kids",
     tagName: "UTF8"
   }

@@ -1,7 +1,9 @@
 import { expect } from '@playwright/test';
 export class ProjectPage{
     constructor(page){
-        this.page = page              
+        this.page = page  
+        this.keyWordSearch = page.locator("[class='project-list-view__header-section__keyword-search'] input[id='text-search-input']");
+        this.bulkUpdateBtn = page.locator('.project-list-view__bulk-update-btn');    
     }
 
     // Add project
@@ -35,8 +37,18 @@ export class ProjectPage{
         await this.page.locator('.search-select__list > :nth-child(1)').click();
     }
 
-    async submitForm() {
+    async submitAddProjectForm() {
         await this.page.locator('.form-actions__buttons > .pri-button').click();
+    }
+
+    async searchProject(projectName) {
+        await this.keyWordSearch.fill(projectName);
+        const searchResponse = this.page.waitForResponse(
+        res => res.url().includes('/spapi/projects?filter') && res.status() === 200
+        );
+        await this.keyWordSearch.press('Enter');
+        await this.keyWordSearch.press('Enter');
+        await searchResponse;
     }
 
     async selectFirstNProjects(count) {
@@ -48,8 +60,21 @@ export class ProjectPage{
         await expect(checkboxes.nth(i)).toBeChecked();
         }
     }
-    
 
+    async bulkEdit() {
+        await this.bulkUpdateBtn.click();
+        await this.selectDropdown('add-country')
+    }
+
+    async bulkUpdateSave(buttonName){
+        await expect(this.page.locator(`.project-bulk-edit__save-btn[name="${buttonName}"]`)).toBeEnabled()
+        await this.page.locator(`.project-bulk-edit__save-btn[name="${buttonName}"]`).click()
+    }
+
+    async closeBulkEditModal(){
+        await this.page.locator("div[class='modal-title__main'] svg g use").click()
+    }
+    
     async scrollProjectListToTop() {
         await this.page.locator('.list-view__tbody').evaluate(el => {
         el.scrollTo({ top: 0 });
