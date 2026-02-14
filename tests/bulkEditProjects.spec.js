@@ -33,13 +33,13 @@ test.describe('bulk edit project', () => {
     test('add country in bulk', async ({},testInfo) => {
         const {serachProjectName} = staticdata
         projectpage = new ProjectPage(page)
-        await navmenu.goToPage('Projects')
+        await navmenu.goToPage('projects/gridview')
         await expect(page).toHaveURL(`${testInfo.project.use.baseURL}`+'/firm/projects/gridview')
         await projectpage.searchProject(serachProjectName)
         await projectpage.selectFirstNProjects(3)
         await projectpage.bulkEdit()
         await projectpage.bulkUpdateSave('country')        
-        await expect(page.locator('.alert-message > p')).toContainText('We are working on your changes',{timeout:10000})
+        await expect(page.getByText('We are working on your changes')).toBeVisible({timeout:10000})
         await projectpage.closeBulkEditModal()
     })
 

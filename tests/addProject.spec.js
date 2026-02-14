@@ -34,7 +34,7 @@ test.describe('Add Project', () => {
     test('add-project-with-data', async ({},testInfo) => {
         projectpage = new ProjectPage(page)
         const {projectName,companySearch,location} = staticdata
-        await navmenu.goToPage('Projects')
+        await navmenu.goToPage('projects/gridview')
         await expect(page).toHaveURL(`${testInfo.project.use.baseURL}`+'/firm/projects/gridview')
         await projectpage.clickAddProject();
         await projectpage.fillProjectForm(projectName,companySearch,location);
