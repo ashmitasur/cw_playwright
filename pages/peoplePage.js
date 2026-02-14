@@ -5,15 +5,14 @@ export class PeoplePage {
   constructor(page) {
     this.page = page;
     this.rightMenu = page.locator("img[alt='MoreMenuIcon']");
-    this.addPersonOption = page.locator('.simple-option-addPerson > a');
-    this.vcardOption = page.locator('.simple-option-vcard > a');
-    this.csvOption = page.locator('.simple-option-csv > a');
-    this.resumeOption = page.locator('.simple-option-resume > a');
+    this.addPersonOption = page.locator('[data-testid="addPerson"]');
+    this.vcardOption = page.locator('[data-testid="vcard"]');
+    this.csvOption = page.locator('[data-testid="csv"]');
+    this.resumeOption = page.locator('[data-testid="resume"]');
     this.nameInput = page.getByPlaceholder('Enter name');
     this.emailInput = page.getByPlaceholder('Email Address');
     this.uploadInput = page.locator('.dz-hidden-input');
     this.submitBtn = page.locator('.form-actions__buttons > .pri-button');
-    this.alertMsg = page.locator('.alert-message > p');
   }
 
   async navigateToPeople() {
@@ -50,7 +49,4 @@ export class PeoplePage {
     await this.submitBtn.click();
   }
 
-  async expectAlertContains(text) {
-    await expect(this.alertMsg).toContainText(text,{timeout:30000});
-  }
 }

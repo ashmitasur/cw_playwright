@@ -9,18 +9,15 @@ export class ProjectPage{
     // Add project
     async clickAddProject() {
         await this.page
-        .locator(':nth-child(4) > [tabindex="-1"] > [data-testid="single-select-btn"] > [data-testid="single-select-btn-button"] > img')
+        .locator('.responsive-action-bar__left button[data-testid="single-select-btn"]')
         .click();
 
-        await this.page.locator('.add-resource-btn').click();
+        await this.page.locator('[data-testid="add"]').click();
     }
 
-    async fillProjectForm(projectName, companySearch, location) {
+    async fillProjectForm(projectName, companySearch) {
         await this.page.locator('#projectName').fill(projectName);
         await this.selectDropdown('projectType');
-        await this.selectDropdown('projectSpecialty');
-        await this.selectDropdown('projectSeniority');
-        await this.selectDropdown('projectDepartment');
 
         await this.page.locator('input[name="company"]').fill(companySearch);
         await this.page
@@ -28,13 +25,11 @@ export class ProjectPage{
         .click();
 
         await this.page.locator('.search-select__list > :nth-child(2)').click();
-
-        await this.page.locator('#location').fill(location);
     }
 
     async selectDropdown(buttonId) {
         await this.page.locator(`button[id="${buttonId}"]`).click();
-        await this.page.locator('.search-select__list > :nth-child(1)').click();
+        await this.page.locator('.search-select > :nth-child(1)').click();
     }
 
     async submitAddProjectForm() {
@@ -52,7 +47,7 @@ export class ProjectPage{
     }
 
     async selectFirstNProjects(count) {
-        const checkboxes = this.page.locator('.checkbox-wrapper input[type="checkbox"]');
+        const checkboxes = this.page.locator('div.shadcn-checkbox > button[type="button"]');
         const total = await checkboxes.count();
 
         for (let i = 1; i <= count && i < total; i++) {
@@ -93,7 +88,10 @@ export class ProjectPage{
         return newPage
     }
     async openSection(newPage,sectionTitle){
-        await expect(newPage.locator('.navigation-sidebar__right__list')).toBeVisible()
-        await newPage.locator(`a[title= '${sectionTitle}']`).click()
+        await expect(newPage.locator('#sidebar-container')).toBeVisible()
+        const sectionLink = newPage.locator(`a[href^="/firm/projects/"][href$="/${sectionTitle}"]`)
+        await expect(sectionLink).toBeVisible({timeout:10000})
+        await sectionLink.click()
+        //await newPage.locator(`a[href^="/firm/projects/"][href$="/${sectionTitle}"]`).click()
     }
 }

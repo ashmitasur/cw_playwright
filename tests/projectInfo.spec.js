@@ -31,11 +31,11 @@ test.describe('Project view', () => {
     })
     
     test('should navigate to Projects info page', async ({},testInfo) => {
-        await navmenu.goToPage('Projects')
+        await navmenu.goToPage('projects/gridview')
         await expect(page).toHaveURL(`${testInfo.project.use.baseURL}`+'/firm/projects/gridview')
 
         const newPage = await projectpage.openProject(context,'Central Communications Assistant')
-        await projectpage.openSection(newPage,'Project Info')
+        await projectpage.openSection(newPage,'project_info')
         expect(await newPage.url()).toContain('project_info')    
     })    
     

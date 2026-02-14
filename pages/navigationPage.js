@@ -3,6 +3,6 @@ export class NavigationPage{
         this.page = page              
     }
     async goToPage(pageName){
-        await this.page.locator(`.sidebar__section li a[title="${pageName}"]`).click()
+        await this.page.locator(`nav.space-y-1.py-2 a[href="/firm/${pageName}"]`).click() 
     }
 }

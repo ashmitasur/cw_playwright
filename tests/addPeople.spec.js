@@ -33,49 +33,47 @@ test.describe('Project view', () => {
         navmenu = new NavigationPage(page)
         const people = new PeoplePage(page);
         const{personName, personEmail} = staticdata
-        await navmenu.goToPage('People')
+        await navmenu.goToPage('people')
         await people.navigateToPeople()
         await people.openAddPerson();
       
         await people.fillPersonForm(personName, personEmail);           
         await people.submit();      
-        await people.expectAlertContains(personName);
-      });
-
+        await expect(page.locator('a.new-project-form--success-message-link')).toHaveText(personName);
+    })
       test('add-person-with-vcard-import', async () => {
         navmenu = new NavigationPage(page)
         const people = new PeoplePage(page);
-        await navmenu.goToPage('People')
+        await navmenu.goToPage('people')
         await people.navigateToPeople();
         await people.openVcardImport();
-
         await people.uploadFile('tests/uploadfiles/Yogesh_Kumar.vcf');
         await people.submit();
-        await people.expectAlertContains('Do not leave.');
+        await expect(page.getByText('Do not leave')).toBeVisible({timeout:30000});
     });
 
     test('add-person-with-csv-import', async () => {
       navmenu = new NavigationPage(page)
       const people = new PeoplePage(page);
-      await navmenu.goToPage('People')
+      await navmenu.goToPage('people')
       await people.navigateToPeople();
       await people.openCsvImport();
 
       await people.uploadFile('tests/uploadfiles/sample.csv');
       await people.submit();
-      await people.expectAlertContains('Do not leave.');
+      await expect(page.getByText('Do not leave')).toBeVisible({timeout:30000});
     });
 
     test('add-person-with-resume-import', async () => {
       navmenu = new NavigationPage(page)
       const people = new PeoplePage(page);
-      await navmenu.goToPage('People')
+      await navmenu.goToPage('people')
       await people.navigateToPeople();
       await people.openResumeImport();
 
       await people.uploadFile('tests/uploadfiles/Profile.pdf');
       await people.submit();
-        await people.expectAlertContains('Do not leave.');
+      await expect(page.getByText('Do not leave')).toBeVisible({timeout:30000});
     });
     
     test.afterAll(async({},testInfo) =>{
@@ -85,5 +83,4 @@ test.describe('Project view', () => {
     })   
     
   });
-
 

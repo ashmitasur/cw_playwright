@@ -4,7 +4,7 @@ export class LogInPage{
         this.emailInput = page.getByRole('textbox', { name: 'email' })
         this.passwordInput = page.getByRole('textbox', { name: 'password' })
         this.submitButton = page.locator('input[type="submit"]')
-        this.profileIcon = page.locator('#site_header_user_menu')
+        this.profileIcon = page.locator('[aria-label="User menu"]')
         this.logoutButton = page.locator("a[href='/logout']")
         this.firmNameLink = page.locator('[data-testid="firm-redirect-link"]')
     }
