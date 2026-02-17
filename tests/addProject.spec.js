@@ -39,7 +39,7 @@ test.describe('Add Project', () => {
         await projectpage.clickAddProject();
         await projectpage.fillProjectForm(projectName,companySearch,location);
         await projectpage.submitAddProjectForm();
-        await expect(page.locator('.alert-message > p')).toContainText('successfully created');
+        await expect(page.locator(".loading-overlay-spinner__text")).toHaveText("Processing")
     });
 
     test.afterAll(async({},testInfo) =>{
