@@ -8,23 +8,16 @@ export class ProjectPage{
 
     // Add project
     async clickAddProject() {
-        await this.page
-        .locator('.responsive-action-bar__left button[data-testid="single-select-btn"]')
-        .click();
-
+        await this.page.locator('button[title="Menu"]').click();
+        await expect(this.page.locator('[data-testid="add"]')).toBeVisible();
         await this.page.locator('[data-testid="add"]').click();
     }
 
     async fillProjectForm(projectName, companySearch) {
         await this.page.locator('#projectName').fill(projectName);
         await this.selectDropdown('projectType');
-
         await this.page.locator('input[name="company"]').fill(companySearch);
-        await this.page
-        .locator('.companyProfile > :nth-child(3) > [data-testid="single-search-dd"] > [data-testid="single-search-dd-button"]')
-        .click();
-
-        await this.page.locator('.search-select__list > :nth-child(2)').click();
+        await this.page.locator('ul > li[role="option"] > :nth-child(1)').click()
     }
 
     async selectDropdown(buttonId) {
