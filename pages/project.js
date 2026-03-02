@@ -3,12 +3,14 @@ export class ProjectPage{
     constructor(page){
         this.page = page  
         this.keyWordSearch = page.locator("[class='project-list-view__header-section__keyword-search'] input[id='text-search-input']");
-        this.bulkUpdateBtn = page.locator('.project-list-view__bulk-update-btn');    
+        this.bulkUpdateBtn = page.locator('.project-list-view__bulk-update-btn');  
+        this.threeDotsMenu = page.locator('button[title="Menu"]')
+
     }
 
     // Add project
     async clickAddProject() {
-        await this.page.locator('button[title="Menu"]').click();
+        await this.threeDotsMenu.click();
         await expect(this.page.locator('[data-testid="add"]')).toBeVisible();
         await this.page.locator('[data-testid="add"]').click();
     }
@@ -67,6 +69,14 @@ export class ProjectPage{
         await this.page.locator('.list-view__tbody').evaluate(el => {
         el.scrollTo({ top: 0 });
         });
+    }
+
+    async exportProject() {
+        await this.threeDotsMenu.click();
+        await this.page.waitForSelector('[data-slot="dropdown-menu-content"]');
+        await expect(this.page.locator('[data-testid="export"]')).toBeVisible();
+        await this.page.locator('[data-testid="export"]').click();
+        await this.page.locator('form.project-list-view__export-form .form-actions__buttons .btn').click()
     }
 
 
