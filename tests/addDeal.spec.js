@@ -3,7 +3,7 @@ import { LogInPage } from '../pages/logInPage';
 import { credentials } from '../testData/credentials';
 import { staticdata } from '../testData/staticdata';
 import { NavigationPage } from '../pages/navigationPage';
-import { CompanyPage } from '../pages/company';
+import { DealPage } from '../pages/deal';
 
 let browser;
 let context;
@@ -12,36 +12,34 @@ let loginpage;
 let navmenu;
 let envData;
 
-test.describe('Add Company',() => {
-    test.beforeEach(async({}) =>{
-        browser = await chromium.launch({headless:false});
+test.describe('Add Deal', ()=>{
+    test.beforeEach(async({})=>{
+        browser = await chromium.launch({ headless: false})
         context = await browser.newContext()
         page = await context.newPage()
-
+            
         loginpage = new LogInPage(page)
-
+                
         const env = process.env.PLATFORM
         envData = credentials[env]
         const {firmname,accountUrl} = envData
         await loginpage.gotoAccountsPage(accountUrl)
         await loginpage.selectFirm(firmname)
     })
-    test('Add new company',async()=>{
+    test('Add new deal',async()=>{
         navmenu = new NavigationPage(page)
-        const{companyName,companySubtitle} = staticdata
-        await navmenu.goToPage('companies')
-        const companypage = new CompanyPage(page)
-        companypage.clickAddCompany()
-        companypage.fillCompanyForm(companyName,companySubtitle)
-        companypage.submitAddCompanyForm()
-        await expect(page.getByText(`Company ${companyName} successfully created.`))
-        .toBeVisible({timeout:10000});
+        const{dealName,dealCompany} = staticdata
+        await navmenu.goToPage('deals')
+        const dealpage = new DealPage(page)
+        dealpage.clickAddDeal()
+        dealpage.fillDealForm(dealName,dealCompany)
+        dealpage.submitAddDealForm()
+        await expect(page.getByText(`Deal ${dealCompany}/${dealName} successfully created.`))
+        .toBeVisible({timeout:15000});
     })
-
     test.afterAll(async({},testInfo) =>{
         //logout
         await loginpage.logout()
         await expect(page).toHaveURL(`${testInfo.project.use.baseURL}/session/new`);
     }) 
-
 })
