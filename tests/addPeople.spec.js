@@ -22,7 +22,6 @@ test.describe('Project view', () => {
     loginpage = new LogInPage(page)
     
     const env = process.env.PLATFORM
-    console.log(env)
     envData = credentials[env]
     const {firmname,accountUrl} = envData
     await loginpage.gotoAccountsPage(accountUrl)
@@ -34,7 +33,7 @@ test.describe('Project view', () => {
         const people = new PeoplePage(page);
         const{personName, personEmail} = staticdata
         await navmenu.goToPage('people')
-        await people.navigateToPeople()
+        await people.clickOn3Dots()
         await people.openAddPerson();
       
         await people.fillPersonForm(personName, personEmail);           
@@ -45,7 +44,7 @@ test.describe('Project view', () => {
         navmenu = new NavigationPage(page)
         const people = new PeoplePage(page);
         await navmenu.goToPage('people')
-        await people.navigateToPeople();
+        await people.clickOn3Dots();
         await people.openVcardImport();
         await people.uploadFile('tests/uploadfiles/Yogesh_Kumar.vcf');
         await people.submit();
@@ -56,7 +55,7 @@ test.describe('Project view', () => {
       navmenu = new NavigationPage(page)
       const people = new PeoplePage(page);
       await navmenu.goToPage('people')
-      await people.navigateToPeople();
+      await people.clickOn3Dots();
       await people.openCsvImport();
 
       await people.uploadFile('tests/uploadfiles/sample.csv');
@@ -68,7 +67,7 @@ test.describe('Project view', () => {
       navmenu = new NavigationPage(page)
       const people = new PeoplePage(page);
       await navmenu.goToPage('people')
-      await people.navigateToPeople();
+      await people.clickOn3Dots();
       await people.openResumeImport();
 
       await people.uploadFile('tests/uploadfiles/Profile.pdf');

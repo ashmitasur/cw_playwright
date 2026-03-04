@@ -15,7 +15,7 @@ export class PeoplePage {
     this.submitBtn = page.locator('.form-actions__buttons > .pri-button');
   }
 
-  async navigateToPeople() {
+  async clickOn3Dots() {
     await expect(this.page).toHaveURL(/people/)
     await this.rightMenu.click();
   }

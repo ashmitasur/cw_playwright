@@ -11,6 +11,7 @@ export const staticdata = {
     dealAbout: "This deal have been added by cypress automation script.",
     adminName: "Dr. Grace Jacobson",
     adminEmail: "Meda83@hotmail.com",
+    companyName: "Zieme - Morar",
     companyDetails: "This company have been added by cypress automation script.",
     companySubtitle: "Cypress subtitle",
     taskName: "Cypress Task",
