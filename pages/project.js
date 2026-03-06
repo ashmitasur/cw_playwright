@@ -4,7 +4,7 @@ export class ProjectPage{
         this.page = page  
         this.keyWordSearch = page.locator("[class='project-list-view__header-section__keyword-search'] input[id='text-search-input']");
         this.bulkUpdateBtn = page.locator('.project-list-view__bulk-update-btn');  
-        this.threeDotsMenu = page.locator('button[title="Menu"]')
+        this.threeDotsMenu = page.locator('button#right-menu')
 
     }
 

@@ -18,7 +18,7 @@ export class CompanyPage{
     }
     async selectDropdown(buttonId) {
         await this.page.locator(`button[id="${buttonId}"]`).click();
-        await this.page.locator('.search-select > :nth-child(1)').click();
+        await this.page.locator('.search-select ul li').nth(0).click();
     }
     async submitAddCompanyForm() {
         await expect(this.page.locator('.form-actions__buttons > .pri-button')).toBeEnabled()

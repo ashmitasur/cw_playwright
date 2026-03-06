@@ -12,7 +12,6 @@ export class DealPage{
     async fillDealForm(dealName,dealCompany){
         await this.page.locator("#name").fill(dealName)
         await this.page.locator('input[name="company"]').fill(dealCompany);
-        //await this.page.locator('ul > li[role="option"] > :nth-child(1)').click()
         await this.selectDropdown('Deal Status')
         await this.selectDropdown('Deal Stage')
     }

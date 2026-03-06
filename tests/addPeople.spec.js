@@ -28,11 +28,12 @@ test.describe('Project view', () => {
     await loginpage.selectFirm(firmname)
     })
 
-    test('add-person-with-static-data', async () => {
+    test('add-person-with-static-data', async ({},testInfo) => {
         navmenu = new NavigationPage(page)
         const people = new PeoplePage(page);
         const{personName, personEmail} = staticdata
         await navmenu.goToPage('people')
+        await expect(page).toHaveURL(`${testInfo.project.use.baseURL}`+'/firm/people')
         await people.clickOn3Dots()
         await people.openAddPerson();
       
@@ -40,10 +41,11 @@ test.describe('Project view', () => {
         await people.submit();      
         await expect(page.locator('a.new-project-form--success-message-link')).toHaveText(personName);
     })
-      test('add-person-with-vcard-import', async () => {
+      test('add-person-with-vcard-import', async ({},testInfo) => {
         navmenu = new NavigationPage(page)
         const people = new PeoplePage(page);
         await navmenu.goToPage('people')
+        await expect(page).toHaveURL(`${testInfo.project.use.baseURL}`+'/firm/people')
         await people.clickOn3Dots();
         await people.openVcardImport();
         await people.uploadFile('tests/uploadfiles/Yogesh_Kumar.vcf');
@@ -51,10 +53,11 @@ test.describe('Project view', () => {
         await expect(page.getByText('Do not leave')).toBeVisible({timeout:30000});
     });
 
-    test('add-person-with-csv-import', async () => {
+    test('add-person-with-csv-import', async ({},testInfo) => {
       navmenu = new NavigationPage(page)
       const people = new PeoplePage(page);
       await navmenu.goToPage('people')
+      await expect(page).toHaveURL(`${testInfo.project.use.baseURL}`+'/firm/people')
       await people.clickOn3Dots();
       await people.openCsvImport();
 
@@ -63,10 +66,11 @@ test.describe('Project view', () => {
       await expect(page.getByText('Do not leave')).toBeVisible({timeout:30000});
     });
 
-    test('add-person-with-resume-import', async () => {
+    test('add-person-with-resume-import', async ({},testInfo) => {
       navmenu = new NavigationPage(page)
       const people = new PeoplePage(page);
       await navmenu.goToPage('people')
+      await expect(page).toHaveURL(`${testInfo.project.use.baseURL}`+'/firm/people')
       await people.clickOn3Dots();
       await people.openResumeImport();
 

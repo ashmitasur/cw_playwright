@@ -4,7 +4,7 @@ import { expect } from '@playwright/test';
 export class PeoplePage {
   constructor(page) {
     this.page = page;
-    this.rightMenu = page.locator("img[alt='MoreMenuIcon']");
+    this.rightMenu = page.locator('button#right-menu');
     this.addPersonOption = page.locator('[data-testid="addPerson"]');
     this.vcardOption = page.locator('[data-testid="vcard"]');
     this.csvOption = page.locator('[data-testid="csv"]');
@@ -47,6 +47,13 @@ export class PeoplePage {
 
   async submit() {
     await this.submitBtn.click();
+  }
+
+  async exportPeople(){            
+    await expect(this.page.locator('[data-testid="export"]')).toBeVisible();
+    await this.page.locator('[data-testid="export"]').click();
+    await this.page.locator('form.people-export-fields .form-actions__buttons .btn', {hasText: 'Ok'})
+          .click()
   }
 
 }

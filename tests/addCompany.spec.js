@@ -26,10 +26,11 @@ test.describe('Add Company',() => {
         await loginpage.gotoAccountsPage(accountUrl)
         await loginpage.selectFirm(firmname)
     })
-    test('Add new company',async()=>{
+    test('Add new company',async ({},testInfo)=>{
         navmenu = new NavigationPage(page)
         const{companyName,companySubtitle} = staticdata
         await navmenu.goToPage('companies')
+        await expect(page).toHaveURL(`${testInfo.project.use.baseURL}`+'/firm/companies')
         const companypage = new CompanyPage(page)
         companypage.clickAddCompany()
         companypage.fillCompanyForm(companyName,companySubtitle)
