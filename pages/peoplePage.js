@@ -13,6 +13,8 @@ export class PeoplePage {
     this.emailInput = page.getByPlaceholder('Email Address');
     this.uploadInput = page.locator('.dz-hidden-input');
     this.submitBtn = page.locator('.form-actions__buttons > .pri-button');
+    this.keywordSearchBox = page.locator('#text-search-input');
+    this.personInList = page.locator('.people-grid-view__person-name__link');
   }
 
   async clickOn3Dots() {
@@ -56,4 +58,25 @@ export class PeoplePage {
           .click()
   }
 
+  async searchPeople(personName){
+    // Enter search text and press Enter twice
+    await this.keywordSearchBox.first().fill(personName);
+    await this.keywordSearchBox.first().press('Enter');
+    await this.keywordSearchBox.first().press('Enter');
+
+    // Wait for API response
+    await this.page.waitForResponse(response =>
+      response.url().includes('/spapi/people_list') && response.status() === 200);
+
+    await expect(this.personInList.first()).toBeVisible();
+  }
+
+  async openPeoplePanle(personName) {
+    const person = this.page.locator('.people-grid-view__person-name__link', {hasText: personName}).first();
+    await expect(person).toBeVisible();   // wait properly
+    await person.click();
+  } 
+  async closePeoplePanle(){
+    await this.page.locator('[class="side-panel__controls__item close-item"]').click()
+  }
 }
