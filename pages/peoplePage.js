@@ -1,4 +1,3 @@
-// pages/PeoplePage.js
 import { expect } from '@playwright/test';
 
 export class PeoplePage {
@@ -15,6 +14,7 @@ export class PeoplePage {
     this.submitBtn = page.locator('.form-actions__buttons > .pri-button');
     this.keywordSearchBox = page.locator('#text-search-input');
     this.personInList = page.locator('.people-grid-view__person-name__link');
+    this.candidateInProjectCrad = page.locator('.candidate-in-projects');
   }
 
   async clickOn3Dots() {
@@ -58,9 +58,9 @@ export class PeoplePage {
           .click()
   }
 
-  async searchPeople(personName){
+  async searchPeople(searchPeopleByEmail){
     // Enter search text and press Enter twice
-    await this.keywordSearchBox.first().fill(personName);
+    await this.keywordSearchBox.first().fill(searchPeopleByEmail);
     await this.keywordSearchBox.first().press('Enter');
     await this.keywordSearchBox.first().press('Enter');
 
@@ -71,9 +71,10 @@ export class PeoplePage {
     await expect(this.personInList.first()).toBeVisible();
   }
 
-  async openPeoplePanle(personName) {
-    const person = this.page.locator('.people-grid-view__person-name__link', {hasText: personName}).first();
-    await expect(person).toBeVisible();   // wait properly
+  async openPeoplePanle(searchPeople) {
+    const person = this.page.locator('.people-grid-view__person-name__link', {hasText: searchPeople})
+    .first();
+    await expect(person).toBeVisible();
     await person.click();
   } 
   async closePeoplePanle(){

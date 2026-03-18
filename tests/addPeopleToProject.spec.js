@@ -12,24 +12,23 @@ let loginpage;
 let navmenu;
 let envdata;
 
-test.describe('People Side Panel',()=>{
-    test.beforeEach(async({})=>{
-        browser = await chromium.launch()
-        context = await browser.newContext()
+test.describe('Add people to project',()=>{
+    test.beforeEach(async({}) =>{
+        browser = await chromium.launch();
+        context = await browser.newContext();
         page = await context.newPage()
 
-        loginpage = new LogInPage(page)
         const env = process.env.PLATFORM
         envdata = credentials[env]
-        const{firmname,accountUrl} = envdata
-
+        const{accountUrl,firmname} = envdata
+        loginpage = new LogInPage(page)
         await loginpage.gotoAccountsPage(accountUrl)
         await loginpage.selectFirm(firmname)
     })
 
-    test('Open people panel', async({}, testInfo) =>{
+    test('Add people as a candidate from people panel', async({},testInfo) =>{
         navmenu = new NavigationPage(page)
-        const{searchPeopleByEmail, searchPeople} = staticdata
+        const{searchPeopleByEmail, searchPeople, searchToSelectProject} = staticdata
         await navmenu.goToPage('people')
         await expect(page).toHaveURL(`${testInfo.project.use.baseURL}`+'/firm/people')
         const people = new PeoplePanel(page);
@@ -37,12 +36,8 @@ test.describe('People Side Panel',()=>{
         await people.openPeoplePanle(searchPeople)
         await expect(page).toHaveURL(/#id:/);
         await expect(page.locator('.side-panel')).toBeVisible();
-        await people.closePeoplePanle()
-    })
+        await people.addPeopleToProject(searchToSelectProject)
+        await expect(page.getByText('Candidate added to 1 projects')).toBeVisible();
 
-    test.afterAll(async({},testInfo) =>{
-        //logout
-        await loginpage.logout()
-        await expect(page).toHaveURL(`${testInfo.project.use.baseURL}/session/new`);
-     })   
+    })
 })
