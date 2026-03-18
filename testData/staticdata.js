@@ -16,7 +16,9 @@ export const staticdata = {
     companySubtitle: "Playwright subtitle",
     taskName: "Playwright Task",
     serachProjectName: "Senior Data Liaison",
-    searchPeopleName: "ashmita cypress_admin",
+    searchPeople: "Ashmita People Record",
+    searchPeopleByEmail: "ashmita+playwright@clockworkrecruiting.com",
+    searchToSelectProject: "Test project",
     projectCountry: 'India',
     schoolName: "Kids",
     tagName: "UTF8"
