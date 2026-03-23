@@ -4,15 +4,22 @@ export class ProjectPage{
         this.page = page  
         this.keyWordSearch = page.locator("[class='project-list-view__header-section__keyword-search'] input[id='text-search-input']");
         this.bulkUpdateBtn = page.locator('.project-list-view__bulk-update-btn');  
-        this.threeDotsMenu = page.locator('button#right-menu')
+        this.threeDotsMenu = page.locator('button#right-menu');
+        this.addProjectBtn = page.locator('[data-testid="add"]');
+        this.exportProjectBtn = page.locator('[data-testid="export"]');
 
     }
 
     // Add project
     async clickAddProject() {
         await this.threeDotsMenu.click();
-        await expect(this.page.locator('[data-testid="add"]')).toBeVisible();
-        await this.page.locator('[data-testid="add"]').click();
+        await expect(this.addProjectBtn).toBeVisible();
+        await this.addProjectBtn.click();
+    }
+
+    async selectDropdown(buttonId) {
+        await this.page.locator(`button[id="${buttonId}"]`).click();
+        await this.page.locator('.search-select > :nth-child(1)').click();
     }
 
     async fillProjectForm(projectName, companySearch) {
@@ -20,11 +27,6 @@ export class ProjectPage{
         await this.selectDropdown('projectType');
         await this.page.locator('input[name="company"]').fill(companySearch);
         await this.page.locator('ul > li[role="option"] > :nth-child(1)').click()
-    }
-
-    async selectDropdown(buttonId) {
-        await this.page.locator(`button[id="${buttonId}"]`).click();
-        await this.page.locator('.search-select > :nth-child(1)').click();
     }
 
     async submitAddProjectForm() {
@@ -74,8 +76,8 @@ export class ProjectPage{
     async exportProject() {
         await this.threeDotsMenu.click();
         await this.page.waitForSelector('[data-slot="dropdown-menu-content"]');
-        await expect(this.page.locator('[data-testid="export"]')).toBeVisible();
-        await this.page.locator('[data-testid="export"]').click();
+        await expect(this.exportProjectBtn).toBeVisible();
+        await this.exportProjectBtn.click();
         await this.page.locator('form.project-list-view__export-form .form-actions__buttons .btn').click()
     }
 
