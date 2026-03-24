@@ -3,6 +3,7 @@ import { LogInPage } from '../pages/logInPage';
 import { credentials } from '../testData/credentials';
 import { NavigationPage } from '../pages/navigationPage';
 import { ProjectPage } from '../pages/project';
+import { staticdata } from '../testData/staticdata';
 
 let browser;
 let context;
@@ -33,10 +34,12 @@ test.describe('Project view', () => {
     test('should navigate to Projects info page', async ({},testInfo) => {
         await navmenu.goToPage('projects/gridview')
         await expect(page).toHaveURL(`${testInfo.project.use.baseURL}`+'/firm/projects/gridview')
-
-        const newPage = await projectpage.openProject(context,'Central Communications Assistant')
+        const{searchProject,projectComapny} = staticdata;
+        const newPage = await projectpage.openProject(context,searchProject)
         await projectpage.openSection(newPage,'project_info')
-        expect(await newPage.url()).toContain('project_info')    
+        expect(await newPage.url()).toContain('project_info')  
+        await expect(newPage.locator('h2').first())
+        .toHaveText(`${searchProject} for ${projectComapny}`, { timeout: 20000 });  
     })    
     
     test.afterAll(async({},testInfo) =>{
