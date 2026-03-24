@@ -2,6 +2,8 @@ export const staticdata = {
     personName: `TestName_${Date.now()}`,
     personEmail: `user_${Math.random().toString(36).substring(2, 8)}@test.com`,
     projectName: `Test Project ${Date.now()}`,
+    searchProject: 'Central Communications Assistant',
+    projectComapny: 'AIW (AI Workspace)',
     companySearch: 'Kreeti',
     location: 'New York',
     testNote: "This note have been added by playwright automation script.",

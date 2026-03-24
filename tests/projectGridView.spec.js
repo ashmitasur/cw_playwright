@@ -3,6 +3,7 @@ import { LogInPage } from '../pages/logInPage';
 import { credentials } from '../testData/credentials';
 import { NavigationPage } from '../pages/navigationPage';
 import { ProjectPage } from '../pages/project';
+import { staticdata } from '../testData/staticdata';
 
 let browser;
 let context;
@@ -31,8 +32,9 @@ test.describe('Project Girdview',() =>{
 
     test("Open Project Gridview", async({},testInfo)=>{
         await navmenu.goToPage('projects/gridview')
-        await expect(page).toHaveURL(`${testInfo.project.use.baseURL}`+'/firm/projects/gridview')        
-        const newPage = await projectpage.openProject(context,'Central Communications Assistant')
+        await expect(page).toHaveURL(`${testInfo.project.use.baseURL}`+'/firm/projects/gridview')  
+        const{searchProject} = staticdata      
+        const newPage = await projectpage.openProject(context,searchProject)
         await projectpage.openSection(newPage,'grid_view')
         expect(await newPage.url()).toContain('grid_view')   
     })
