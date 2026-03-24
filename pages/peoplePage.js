@@ -14,7 +14,10 @@ export class PeoplePage {
     this.submitBtn = page.locator('.form-actions__buttons > .pri-button');
     this.keywordSearchBox = page.locator('#text-search-input');
     this.personInList = page.locator('.people-grid-view__person-name__link');
-    this.candidateInProjectCrad = page.locator('.candidate-in-projects');
+    this.checkboxes = page.locator('.list-view__tbody button[type="button"]');
+    this.addNoteButton = page.locator('button[title="Add Note"]');
+    this.ckEditor = page.locator('.ck-content[contenteditable="true"]');
+    this.saveButton = page.locator('.form-actions__buttons > .pri-button');
   }
 
   async clickOn3Dots() {
@@ -69,6 +72,31 @@ export class PeoplePage {
       response.url().includes('/spapi/people_list') && response.status() === 200);
 
     await expect(this.personInList.first()).toBeVisible();
+  }
+
+  async selectAllPeople() {
+    const count = await this.checkboxes.count();
+    for (let i = 0; i < count; i++) {
+      await this.checkboxes.nth(i).check();
+      await expect(this.checkboxes.nth(i)).toBeChecked();
+    }
+  }
+
+  async addNote(note) {
+    await expect(this.addNoteButton).toBeEnabled()
+    await this.addNoteButton.click();
+
+    // Handle CKEditor
+    await this.ckEditor.click();
+    await this.ckEditor.type(note);
+    // await this.page.evaluate((note) => {
+    //   const el = document.querySelector('.ck-content[contenteditable="true"]');
+    //   if (el && el.ckeditorInstance) {
+    //     el.ckeditorInstance.setData(note);
+    //   }
+    // }, note);
+
+    await this.saveButton.click();
   }
 
   async openPeoplePanle(searchPeople) {
