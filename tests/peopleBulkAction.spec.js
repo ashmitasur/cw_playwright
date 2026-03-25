@@ -52,6 +52,17 @@ test.describe('People Bulk action', () => {
         await expect(page.getByText('Your mass mail campaign was successful.')).toBeVisible({timeout:30000})
     });
 
+    test('bulk edit people', async ({},testInfo) => {
+        const people = new PeoplePage(page);
+        await navmenu.goToPage('people')
+        await expect(page).toHaveURL(`${testInfo.project.use.baseURL}`+'/firm/people')
+        const{searchPeople} = staticdata
+        await people.searchPeople(searchPeople)
+        await people.selectAllPeople()
+        await people.bulkEdit()
+        await expect(page.getByText('We are processing your request.')).toBeVisible({timeout:10000})
+    });
+
     
     test.afterAll(async({},testInfo) =>{
         //logout
