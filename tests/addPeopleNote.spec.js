@@ -34,8 +34,8 @@ test.describe('Project view', () => {
         const people = new PeoplePage(page);
         await navmenu.goToPage('people')
         await expect(page).toHaveURL(`${testInfo.project.use.baseURL}`+'/firm/people')
-        const{searchPeopleByEmail, note} = staticdata
-        await people.searchPeople(searchPeopleByEmail)
+        const{searchPeople, note} = staticdata
+        await people.searchPeople(searchPeople)
         await people.selectAllPeople()
         await people.addNote(note)
         // //await expect(page.locator('.alert-message')).toContainText('Note added');
