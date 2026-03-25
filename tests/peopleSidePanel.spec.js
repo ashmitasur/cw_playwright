@@ -29,12 +29,12 @@ test.describe('People Side Panel',()=>{
 
     test('Open people panel', async({}, testInfo) =>{
         navmenu = new NavigationPage(page)
-        const{searchPeopleByEmail, searchPeople} = staticdata
+        const{searchPeopleByEmail, searchUniquePerson} = staticdata
         await navmenu.goToPage('people')
         await expect(page).toHaveURL(`${testInfo.project.use.baseURL}`+'/firm/people')
         const people = new PeoplePanel(page);
         await people.searchPeople(searchPeopleByEmail)
-        await people.openPeoplePanle(searchPeople)
+        await people.openPeoplePanle(searchUniquePerson)
         await expect(page).toHaveURL(/#id:/);
         await expect(page.locator('.side-panel')).toBeVisible();
         await people.closePeoplePanle()
