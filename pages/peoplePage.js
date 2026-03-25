@@ -17,6 +17,7 @@ export class PeoplePage {
     this.checkboxes = page.locator('.list-view__tbody button[type="button"]');
     this.addBulkNoteButton = page.locator('button[title="Add Note"]');
     this.addBulkEmailButton = page.locator('button[title="Email"]');
+    this.bulkEditButton = page.locator('button[title="Bulk Edit"]');
     this.ckEditor = page.locator('.ck-content[contenteditable="true"]');
     this.saveButton = page.locator('.form-actions__buttons > .pri-button');
     this.emailSubjectInput = page.locator('.mass-mailer-popup-form .input-groups input[name="subject"]')
@@ -110,13 +111,16 @@ export class PeoplePage {
     await this.saveButton.click();
   }
 
-  async openPeoplePanle(searchPeople) {
-    const person = this.page.locator('.people-grid-view__person-name__link', {hasText: searchPeople})
-    .first();
-    await expect(person).toBeVisible();
-    await person.click();
-  } 
-  async closePeoplePanle(){
-    await this.page.locator('[class="side-panel__controls__item close-item"]').click()
+  async singleSelectDropdown(buttonId) {
+      await this.page.locator(`button[id="${buttonId}"]`).click();
+      await this.page.locator('[data-slot="dropdown-menu-content"] > :nth-child(1)').click();
   }
+
+  async bulkEdit(){
+    await expect(this.bulkEditButton).toBeEnabled()
+    await this.bulkEditButton.click();
+    await this.singleSelectDropdown('country-add');
+    await this.saveButton.click();
+  }
+  
 }
