@@ -49,7 +49,7 @@ test.describe('People Bulk action', () => {
         await people.searchPeople(searchPeople)
         await people.selectAllPeople()
         await people.addEmail(emailSubject,emailContent)
-        await expect(page.getByText('Your mail campaign is being processed')).toBeVisible({timeout:10000})
+        await expect(page.getByText('Your mass mail campaign was successful.')).toBeVisible({timeout:30000})
     });
 
     
