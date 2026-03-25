@@ -23,7 +23,9 @@ export const staticdata = {
     searchPeopleByEmail: "ashmita+playwright@clockworkrecruiting.com",
     searchToSelectProject: "Test project",
     projectCountry: 'India',
-    note: 'This is a test note',
+    note: 'This is a person bulk test note',
+    emailSubject: 'This is a person bulk test email',
+    emailContent: 'Hello',
     schoolName: "Kids",
     tagName: "UTF8"
   }

@@ -15,9 +15,11 @@ export class PeoplePage {
     this.keywordSearchBox = page.locator('#text-search-input');
     this.personInList = page.locator('.people-grid-view__person-name__link');
     this.checkboxes = page.locator('.list-view__tbody button[type="button"]');
-    this.addNoteButton = page.locator('button[title="Add Note"]');
+    this.addBulkNoteButton = page.locator('button[title="Add Note"]');
+    this.addBulkEmailButton = page.locator('button[title="Email"]');
     this.ckEditor = page.locator('.ck-content[contenteditable="true"]');
     this.saveButton = page.locator('.form-actions__buttons > .pri-button');
+    this.emailSubjectInput = page.locator('.mass-mailer-popup-form .input-groups input[name="subject"]')
   }
 
   async clickOn3Dots() {
@@ -83,8 +85,8 @@ export class PeoplePage {
   }
 
   async addNote(note) {
-    await expect(this.addNoteButton).toBeEnabled()
-    await this.addNoteButton.click();
+    await expect(this.addBulkNoteButton).toBeEnabled()
+    await this.addBulkNoteButton.click();
 
     // Handle CKEditor
     await this.ckEditor.click();
@@ -96,6 +98,15 @@ export class PeoplePage {
     //   }
     // }, note);
 
+    await this.saveButton.click();
+  }
+
+  async addEmail(emailSubject,emailContent){
+    await expect(this.addBulkEmailButton).toBeEnabled()
+    await this.addBulkEmailButton.click();
+    await this.emailSubjectInput.fill(emailSubject);
+    await this.ckEditor.click();
+    await this.ckEditor.type(emailContent);
     await this.saveButton.click();
   }
 
