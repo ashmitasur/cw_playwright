@@ -7,13 +7,15 @@ export class PeoplePanel {
     this.personInList = page.locator('.people-grid-view__person-name__link');
     this.candidateInProjectCrad = page.locator('.candidate-in-projects');
     this.documentCard = page.locator("#resume-overview-card");
+    this.positionCard = page.locator("#position-overview-card");
     this.cardExpandCollapseButton = page.locator('.card-view__collapse-button');
     this.collapsedCardAccordian='.card-view__header--collapsed'
     this.addRecordBtnLocator = '.add-record-btn';
     this.uploadInput = page.locator('.dz-hidden-input');
-    this.documentTitle = page.locator('#title');
+    this.title = page.locator('#title');
     this.documentType = 'div.select-option-floating';
-    this.resumeparseCheckbox = page.getByLabel('Parse')
+    this.resumeparseCheckbox = page.getByLabel('Parse');
+    this.cardAddButton = '[type="submit"]';
   }
 
 
@@ -38,10 +40,10 @@ export class PeoplePanel {
   } 
 
   async addPeopleToProject(searchToSelectProject){
-    const cardCollapsed = this.candidateInProjectCrad.locator(this.collapsedCardAccordian);
-    if(cardCollapsed.count() > 0){
-        await this.cardExpandCollapseButton.click()
-    }
+    //const cardCollapsed = this.candidateInProjectCrad.locator(this.collapsedCardAccordian);
+    // if(cardCollapsed.count() > 0){
+    //     await this.cardExpandCollapseButton.click()
+    // }
     const addBtn = this.candidateInProjectCrad.locator(this.addRecordBtnLocator);
     await expect(addBtn).toBeVisible();
     await addBtn.click();
@@ -58,21 +60,32 @@ export class PeoplePanel {
   }
 
   async uploadResume(filepath,title){
-    const cardCollapsed = this.documentCard.locator(this.collapsedCardAccordian);
-    if(cardCollapsed.count() > 0){
-        await this.cardExpandCollapseButton.click()
-    }
+    // const cardCollapsed = this.documentCard.locator(this.collapsedCardAccordian);
+    // if(cardCollapsed.count() > 0){
+    //     await this.cardExpandCollapseButton.click()
+    // }
     const addBtn = this.documentCard.locator(this.addRecordBtnLocator);
     await expect(addBtn).toBeVisible();
     await addBtn.click();
     await this.uploadInput.setInputFiles(filepath)
-    await this.documentTitle.fill(title)
+    await this.title.fill(title)
     await this.documentCard.locator(this.documentType).click()
     await this.singleSelectDD(this.documentCard)
     await this.resumeparseCheckbox.click()
-    await this.documentCard.locator('[type="submit"]').click()
-    await expect(this.documentCard.locator('[type="submit"]')).toBeDisabled()
+    await this.documentCard.locator(this.cardAddButton).click()
+    await expect(this.documentCard.locator(this.cardAddButton)).toBeDisabled()
+  }
 
+  async addPosition(positionTitle,companyName){
+    const addBtn = this.positionCard.locator(this.addRecordBtnLocator);
+    await expect(addBtn).toBeVisible();
+    await addBtn.click();
+    await this.page.locator('input[name="title"]').fill(positionTitle)
+    await this.page.locator('.company-dd-floating-ui').click()
+    await this.page.getByRole("listbox").locator('input').fill(companyName)
+    await this.page.locator('.list-items button[role="option"]:nth-child(1)').click()
+    await this.positionCard.locator(this.cardAddButton).click()
+    await expect(this.positionCard.locator(this.cardAddButton)).toBeDisabled()
   }
 
   async singleSelectDD(container){
