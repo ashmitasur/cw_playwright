@@ -12,7 +12,7 @@ let loginpage;
 let navmenu;
 let envdata;
 
-test.describe('People position',()=>{
+test.describe('People Education',()=>{
     test.beforeEach(async({}) =>{
         browser = await chromium.launch();
         context = await browser.newContext();
@@ -26,9 +26,9 @@ test.describe('People position',()=>{
         await loginpage.selectFirm(firmname)
     })
 
-    test('Add position in people panel', async({},testInfo) =>{
+    test('Add Education in people panel', async({},testInfo) =>{
         navmenu = new NavigationPage(page)
-        const{searchPeopleByEmail, searchUniquePerson, personPosition, companySearch} = staticdata
+        const{searchPeopleByEmail, searchUniquePerson, personDegree, personSchoolName} = staticdata
         await navmenu.goToPage('people')
         await expect(page).toHaveURL(`${testInfo.project.use.baseURL}`+'/firm/people')
         const people = new PeoplePanel(page);
@@ -36,7 +36,7 @@ test.describe('People position',()=>{
         await people.openPeoplePanle(searchUniquePerson)
         await expect(page).toHaveURL(/#id:/);
         await expect(page.locator('.side-panel')).toBeVisible();
-        await people.addPosition(personPosition,companySearch)
-        await expect(page.getByText('Person position has been created.')).toBeVisible({timeout:20000})
+        await people.addPeopleEducation(personDegree,personSchoolName)
+        await expect(page.getByText('Person education has been created.')).toBeVisible({timeout:20000})
     })
 })
