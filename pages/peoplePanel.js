@@ -107,4 +107,11 @@ export class PeoplePanel {
   async closePeoplePanle(){
     await this.page.locator('[class="side-panel__controls__item close-item"]').click()
   }
+
+  async deletePeople(){
+    await this.page.locator('.secondary-delete-button').click();
+    await this.page.locator('input.delete-confirm-dialog__confirmation-input').type('DELETE');
+    await expect(this.page.locator('.delete-confirm-btn')).toBeEnabled()
+    await this.page.locator('.delete-confirm-btn').click();
+  }
 }

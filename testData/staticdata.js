@@ -1,6 +1,6 @@
 export const staticdata = {
-    personName: `TestName_${Date.now()}`,
-    personEmail: `user_${Math.random().toString(36).substring(2, 8)}@test.com`,
+    personName: "Natalia",
+    personEmail: "ashmita+playwright@clockworkrecruiting.com",
     projectName: `Test Project ${Date.now()}`,
     searchProject: 'Central Communications Assistant',
     projectComapny: 'AIW (AI Workspace)',
@@ -18,7 +18,7 @@ export const staticdata = {
     companySubtitle: "Playwright subtitle",
     taskName: "Playwright Task",
     serachProjectName: "Senior Data Liaison",
-    searchUniquePerson: "Natalia Benante Orlandi Gimenez",
+    searchUniquePerson: "Natalia",
     searchPeople: "Ashmita",
     searchPeopleByEmail: "ashmita+playwright@clockworkrecruiting.com",
     searchToSelectProject: "Test project",
