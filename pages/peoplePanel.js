@@ -8,6 +8,7 @@ export class PeoplePanel {
     this.candidateInProjectCrad = page.locator('.candidate-in-projects');
     this.documentCard = page.locator("#resume-overview-card");
     this.positionCard = page.locator("#position-overview-card");
+    this.educationCard = page.locator("#education-overview-card")
     this.cardExpandCollapseButton = page.locator('.card-view__collapse-button');
     this.collapsedCardAccordian='.card-view__header--collapsed'
     this.addRecordBtnLocator = '.add-record-btn';
@@ -83,10 +84,21 @@ export class PeoplePanel {
     await this.page.locator('input[name="title"]').fill(positionTitle)
     await this.page.locator('.company-dd-floating-ui').click()
     await this.page.getByRole("listbox").locator('input').fill(companyName)
-    await this.page.locator('.list-items button[role="option"]:nth-child(1)').click()
+    await this.singleSelectDD(this.positionCard) 
     await this.positionCard.locator(this.cardAddButton).click()
     await expect(this.positionCard.locator(this.cardAddButton)).toBeDisabled()
   }
+
+  async addPeopleEducation(degree,schoolName){
+    const addBtn = this.educationCard.locator(this.addRecordBtnLocator);
+    await expect(addBtn).toBeVisible();
+    await addBtn.click();
+    await this.page.locator('input[placeholder="School Name"]').fill(schoolName)
+    await this.page.locator('ul li[role="option"]:nth-child(1)').click()
+    await this.page.locator('input[name="degree"]').fill(degree)
+    await this.educationCard.locator(this.cardAddButton).click()
+    await expect(this.educationCard.locator(this.cardAddButton)).toBeDisabled()
+  }  
 
   async singleSelectDD(container){
     await container.locator('.list-items > [role="option"]:nth-child(1)').click()
