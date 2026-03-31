@@ -26,6 +26,7 @@ export const staticdata = {
     note: 'This is a person bulk test note',
     emailSubject: 'This is a person bulk test email',
     documentTitle : 'Playwrite resume upload',
+    personPosition: 'Quality Analyst',
     emailContent: 'Hello',
     schoolName: "Kids",
     tagName: "UTF8"
