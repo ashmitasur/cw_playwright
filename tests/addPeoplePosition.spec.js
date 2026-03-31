@@ -28,7 +28,7 @@ test.describe('Add people to project',()=>{
 
     test('Add position in people panel', async({},testInfo) =>{
         navmenu = new NavigationPage(page)
-        const{searchPeopleByEmail, searchUniquePerson, personPosition, searchToSelectProject} = staticdata
+        const{searchPeopleByEmail, searchUniquePerson, personPosition, companySearch} = staticdata
         await navmenu.goToPage('people')
         await expect(page).toHaveURL(`${testInfo.project.use.baseURL}`+'/firm/people')
         const people = new PeoplePanel(page);
@@ -36,7 +36,7 @@ test.describe('Add people to project',()=>{
         await people.openPeoplePanle(searchUniquePerson)
         await expect(page).toHaveURL(/#id:/);
         await expect(page.locator('.side-panel')).toBeVisible();
-        await people.addPosition(personPosition,searchToSelectProject)
+        await people.addPosition(personPosition,companySearch)
         await expect(page.getByText('Person position has been created.')).toBeVisible({timeout:20000})
     })
 })
