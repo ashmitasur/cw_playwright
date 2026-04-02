@@ -77,6 +77,30 @@ export class PeoplePage {
     await expect(this.personInList.first()).toBeVisible();
   }
 
+  //better approach of the above one
+  // async searchPeople(searchPeopleByEmail) {
+  //   const searchBox = this.keywordSearchBox.first();
+
+  // const [response] = await Promise.all([
+  //   this.page.waitForResponse(res =>
+  //     res.url().includes('/spapi/people_list') && res.request().method() === 'POST' && res.status() === 200
+  //   ), 
+  //   (async () => {
+  //     await searchBox.fill(searchPeopleByEmail);
+  //     await searchBox.press('Enter');
+  //     await searchBox.press('Enter');
+  //   })()
+  // ]);
+
+  // // Optional: validate response data (good practice)
+  // const responseBody = await response.json();
+  // // Example check (adjust based on your API)
+  // // expect(responseBody).toBeTruthy();
+
+  // // UI assertion
+  // await expect(this.personInList.first()).toBeVisible();
+  // }
+
   async selectAllPeople() {
     const count = await this.checkboxes.count();
     for (let i = 0; i < count; i++) {
