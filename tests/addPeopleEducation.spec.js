@@ -38,5 +38,11 @@ test.describe('People Education',()=>{
         await expect(page.locator('.side-panel')).toBeVisible();
         await people.addPeopleEducation(personDegree,personSchoolName)
         await expect(page.getByText('Person education has been created.')).toBeVisible({timeout:20000})
+        await people.closePeoplePanle();
     })
+    test.afterAll(async({},testInfo) =>{
+        //logout
+        await loginpage.logout()
+        await expect(page).toHaveURL(`${testInfo.project.use.baseURL}/session/new`);
+     })   
 })

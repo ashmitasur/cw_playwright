@@ -9,6 +9,7 @@ export class PeoplePanel {
     this.documentCard = page.locator("#resume-overview-card");
     this.positionCard = page.locator("#position-overview-card");
     this.educationCard = page.locator("#education-overview-card")
+    this.clientOnProjectCard = page.locator("#clientOnProjects-overview-card")
     this.cardExpandCollapseButton = page.locator('.card-view__collapse-button');
     this.collapsedCardAccordian='.card-view__header--collapsed'
     this.addRecordBtnLocator = '.add-record-btn';
@@ -41,10 +42,6 @@ export class PeoplePanel {
   } 
 
   async addPeopleToProject(searchToSelectProject){
-    //const cardCollapsed = this.candidateInProjectCrad.locator(this.collapsedCardAccordian);
-    // if(cardCollapsed.count() > 0){
-    //     await this.cardExpandCollapseButton.click()
-    // }
     const addBtn = this.candidateInProjectCrad.locator(this.addRecordBtnLocator);
     await expect(addBtn).toBeVisible();
     await addBtn.click();
@@ -61,10 +58,6 @@ export class PeoplePanel {
   }
 
   async uploadResume(filepath,title){
-    // const cardCollapsed = this.documentCard.locator(this.collapsedCardAccordian);
-    // if(cardCollapsed.count() > 0){
-    //     await this.cardExpandCollapseButton.click()
-    // }
     const addBtn = this.documentCard.locator(this.addRecordBtnLocator);
     await expect(addBtn).toBeVisible();
     await addBtn.click();
@@ -106,6 +99,17 @@ export class PeoplePanel {
 
   async closePeoplePanle(){
     await this.page.locator('[class="side-panel__controls__item close-item"]').click()
+  }
+
+  async sendClientInvitation(searchToSelectProject){
+    const addBtn = this.clientOnProjectCard.locator(this.addRecordBtnLocator);
+    await expect(addBtn).toBeVisible();
+    await addBtn.click();
+    await this.clientOnProjectCard.locator("#projectContext").click()
+    await this.searchNSelect(searchToSelectProject)
+    await this.page.locator('[data-testid="filter-dropdown-content-buttons-apply-button"]').click()
+    await expect(this.clientOnProjectCard.locator(this.cardAddButton)).toBeEnabled()
+    await this.clientOnProjectCard.locator(this.cardAddButton).click()
   }
 
   async deletePeople(){

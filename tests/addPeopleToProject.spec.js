@@ -38,6 +38,12 @@ test.describe('Add people to project',()=>{
         await expect(page.locator('.side-panel')).toBeVisible();
         await people.addPeopleToProject(searchToSelectProject)
         await expect(page.getByText('Candidate added to 1 projects')).toBeVisible();
-
+        await people.closePeoplePanle();
     })
+
+    test.afterAll(async({},testInfo) =>{
+        //logout
+        await loginpage.logout()
+        await expect(page).toHaveURL(`${testInfo.project.use.baseURL}/session/new`);
+     })   
 })
