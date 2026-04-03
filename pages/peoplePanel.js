@@ -54,7 +54,7 @@ export class PeoplePanel {
     .toBeVisible()
     await this.page.locator('.search-list-dropdown__search input[type="text"]').fill(searchToSelectProject)
     await expect(this.page.locator('.search-list-dropdown__search')).toBeVisible()
-    await this.page.locator('.search-list-dropdown__search > div > ul > li:nth-child(4)').click()
+    await this.page.locator('.search-list-dropdown__search > div > ul > li:nth-child(1)').click()
   }
 
   async uploadResume(filepath,title){
