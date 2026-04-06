@@ -61,7 +61,7 @@ export class PeoplePage {
     await expect(this.page.locator('[data-testid="export"]')).toBeVisible();
     await this.page.locator('[data-testid="export"]').click();
     await this.page.locator('form.people-export-fields .form-actions__buttons .btn', {hasText: 'Ok'})
-          .click()
+    .click()
   }
 
   async searchPeople(searchPeopleByEmail){
