@@ -99,4 +99,23 @@ export class ProjectPage{
         await sectionLink.click()
         //await newPage.locator(`a[href^="/firm/projects/"][href$="/${sectionTitle}"]`).click()
     }
+
+    async downloadProjectDashboardInPdf(newPage){
+        await newPage.locator('.project-dashboard__action-bar__download').click();
+        await newPage.locator('.dashboard-download-manager__view .radio-button-wrapper__input input[value="Firm View Print"]')
+        .check()
+        await newPage.locator('.dashboard-download-manager__download  .radio-button-wrapper .radio-button-wrapper__input input[value="PDF"]')
+        .check()
+        await newPage.locator('.form-actions__buttons > .pri-button').click();
+    }
+
+    async downloadProjectDashboardInImage(newPage){
+        await newPage.locator('.project-dashboard__action-bar__download').click();
+        await newPage.locator('.dashboard-download-manager__view .radio-button-wrapper__input input[value="Firm View Print"]')
+        .check()
+        await newPage.locator('.dashboard-download-manager__download  .radio-button-wrapper .radio-button-wrapper__input input[value="JPEG"]')
+        .check()
+        await newPage.locator('.form-actions__buttons > .pri-button').click();
+    }
+    
 }
