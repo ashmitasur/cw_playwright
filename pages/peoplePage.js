@@ -21,6 +21,8 @@ export class PeoplePage {
     this.ckEditor = page.locator('.ck-content[contenteditable="true"]');
     this.saveButton = page.locator('.form-actions__buttons > .pri-button');
     this.emailSubjectInput = page.locator('.mass-mailer-popup-form .input-groups input[name="subject"]')
+    this.addToProjectInBulk = page.locator('button#add-to-project')
+    this.applyToAddInProject = page.locator('button[data-testid="filter-dropdown-content-buttons-apply-button"]')
   }
 
   async clickOn3Dots() {
@@ -145,6 +147,20 @@ export class PeoplePage {
     await this.bulkEditButton.click();
     await this.singleSelectDropdown('country-add');
     await this.saveButton.click();
+  }
+
+  async searchNSelect(searchToSelectProject){
+    await expect(this.page.locator('.search-select-multi.relative.search-list-dropdown__search'))
+    .toBeVisible()
+    await this.page.locator('.search-list-dropdown__search input[type="text"]').fill(searchToSelectProject)
+    await expect(this.page.locator('.search-list-dropdown__search')).toBeVisible()
+    await this.page.locator('.search-list-dropdown__search > div > ul > li:nth-child(1)').click()
+  }
+
+  async bulkCandidacyAdd(searchToSelectProject){
+    await this.addToProjectInBulk.click()
+    await this.searchNSelect(searchToSelectProject)
+    await this.applyToAddInProject.click()
   }
   
 }
