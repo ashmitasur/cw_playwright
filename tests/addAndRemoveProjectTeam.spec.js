@@ -13,7 +13,7 @@ let navmenu;
 let envData;
 let projectpage;
 
-test.describe('Project Team Member',() =>{
+test.describe.serial('Project Team Member',() =>{
     test.beforeAll(async() =>{
         browser = await chromium.launch({headless: false})
         context = await browser.newContext()
@@ -38,6 +38,17 @@ test.describe('Project Team Member',() =>{
         await projectpage.openSection(newPage,'dashboard')
         expect(await newPage.url()).toContain('dashboard')
         await projectpage.addTeam(newPage,searchprojectMember)
+    })
+
+    test("Delete Team Member", async({},testInfo)=>{
+        await navmenu.goToPage('projects/gridview')
+        await expect(page).toHaveURL(`${testInfo.project.use.baseURL}`+'/firm/projects/gridview') 
+        const{searchProject,searchprojectMember} = staticdata      
+        const newPage = await projectpage.openProject(context,searchProject)
+        await projectpage.openSection(newPage,'dashboard')
+        expect(await newPage.url()).toContain('dashboard')
+        await projectpage.deleteTeam(newPage)
+        await expect(newPage.getByText('Project user has been removed.')).toBeVisible()
     })
 
      test.afterAll(async({},testInfo) =>{
