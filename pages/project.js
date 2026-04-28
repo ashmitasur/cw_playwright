@@ -10,6 +10,9 @@ export class ProjectPage{
         this.addTeamMember = 'button[title="Add Team Member"]'
         this.addTeamPopUp = '.add-user-popup-content'
         this.ddApplyButton = '[data-testid="filter-dropdown-content-buttons-apply-button"]'
+        this.teamMemberGroup = '[data-testid="project-team"]'
+        this.eachTeamMember = '[data-testid="project-team"] div.team-card__container'
+        this.toolTip = '.tooltip-modal'
 
     }
 
@@ -133,7 +136,22 @@ export class ProjectPage{
         await newPage.locator(this.addTeamMember).click()
         await expect(newPage.locator(this.addTeamPopUp)).toBeVisible()
         await this.searchNSelect(newPage,searchPeople)
-        await newPage.locator(this.ddApplyButton).click()
+        const members = newPage.locator(this.eachTeamMember);
+        // capture count before
+        const initialCount = await members.count();
+        await newPage.locator(this.ddApplyButton).click();
+        // wait until count increases
+        await expect(members).toHaveCount(initialCount + 1);
+        await newPage.locator(this.eachTeamMember).last().hover()
+        await expect(newPage.locator(this.toolTip)).toBeVisible();
+        await expect(newPage.locator(this.toolTip).getByText(searchPeople)).toBeVisible();
+    }
+
+    async deleteTeam(newPage){
+        await newPage.locator(this.eachTeamMember).last().hover()
+        await expect(newPage.locator(this.toolTip)).toBeVisible();
+        await newPage.locator('.remove-icon').click();
+        await newPage.locator('.delete-button').click();
     }
     
 }
