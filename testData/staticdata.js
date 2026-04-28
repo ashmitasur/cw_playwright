@@ -20,6 +20,7 @@ export const staticdata = {
     serachProjectName: "Senior Data Liaison",
     searchUniquePerson: "Natalia",
     searchPeople: "Ashmita",
+    searchprojectMember: 'BSL',
     searchPeopleByEmail: "ashmita+playwright@clockworkrecruiting.com",
     searchToSelectProject: "Test project",
     projectCountry: 'India',

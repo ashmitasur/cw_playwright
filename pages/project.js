@@ -7,6 +7,9 @@ export class ProjectPage{
         this.threeDotsMenu = page.locator('button#right-menu');
         this.addProjectBtn = page.locator('[data-testid="add"]');
         this.exportProjectBtn = page.locator('[data-testid="export"]');
+        this.addTeamMember = 'button[title="Add Team Member"]'
+        this.addTeamPopUp = '.add-user-popup-content'
+        this.ddApplyButton = '[data-testid="filter-dropdown-content-buttons-apply-button"]'
 
     }
 
@@ -116,6 +119,21 @@ export class ProjectPage{
         await newPage.locator('.dashboard-download-manager__download  .radio-button-wrapper .radio-button-wrapper__input input[value="JPEG"]')
         .check()
         await newPage.locator('.form-actions__buttons > .pri-button').click();
+    }
+
+    async searchNSelect(newPage,searchPeople){
+        await expect(newPage.locator('.search-select-multi.relative.search-list-dropdown__search'))
+        .toBeVisible()
+        await newPage.locator('.search-list-dropdown__search input[type="text"]').fill(searchPeople)
+        await expect(newPage.locator('.search-list-dropdown__search')).toBeVisible()
+        await newPage.locator('.search-list-dropdown__search > div > ul > li:nth-child(1)').click()
+    }
+
+    async addTeam(newPage,searchPeople){
+        await newPage.locator(this.addTeamMember).click()
+        await expect(newPage.locator(this.addTeamPopUp)).toBeVisible()
+        await this.searchNSelect(newPage,searchPeople)
+        await newPage.locator(this.ddApplyButton).click()
     }
     
 }
