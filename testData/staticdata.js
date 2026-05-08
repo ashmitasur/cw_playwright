@@ -32,5 +32,6 @@ export const staticdata = {
     personSchoolName: "Heritage",
     emailContent: 'Hello',
     tagName: "UTF8",
-    candidateName: 'Natalia'
+    candidateName: 'Natalia',
+    projectWithCandidate: 'Investor Mobility Specialist'
   }
