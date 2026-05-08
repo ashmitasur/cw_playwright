@@ -4,6 +4,7 @@ import { credentials } from '../testData/credentials';
 import { NavigationPage } from '../pages/navigationPage';
 import { ProjectPage } from '../pages/project';
 import { staticdata } from '../testData/staticdata';
+import { ProjectDashboard } from '../pages/projectDashboard';
 
 let browser;
 let context;
@@ -12,6 +13,7 @@ let loginpage;
 let navmenu;
 let envData;
 let projectpage;
+let projectdashboardpage;
 
 test.describe.serial('Project Team Member',() =>{
     test.beforeAll(async() =>{
@@ -22,6 +24,7 @@ test.describe.serial('Project Team Member',() =>{
         loginpage = new LogInPage(page)
         navmenu = new NavigationPage(page)
         projectpage = new ProjectPage(page)
+        projectdashboardpage = new ProjectDashboard(page)
         const env = process.env.PLATFORM
         envData = credentials[env]
         const {firmname,accountUrl} = envData
@@ -37,7 +40,7 @@ test.describe.serial('Project Team Member',() =>{
         const newPage = await projectpage.openProject(context,searchProject)
         await projectpage.openSection(newPage,'dashboard')
         expect(await newPage.url()).toContain('dashboard')
-        await projectpage.addTeam(newPage,searchprojectMember)
+        await projectdashboardpage.addTeam(newPage,searchprojectMember)
     })
 
     test("Delete Team Member", async({},testInfo)=>{
@@ -47,7 +50,7 @@ test.describe.serial('Project Team Member',() =>{
         const newPage = await projectpage.openProject(context,searchProject)
         await projectpage.openSection(newPage,'dashboard')
         expect(await newPage.url()).toContain('dashboard')
-        await projectpage.deleteTeam(newPage)
+        await projectdashboardpage.deleteTeam(newPage)
         await expect(newPage.getByText('Project user has been removed.')).toBeVisible()
     })
 

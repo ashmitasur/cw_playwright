@@ -4,6 +4,7 @@ import { credentials } from '../testData/credentials';
 import { NavigationPage } from '../pages/navigationPage';
 import { ProjectPage } from '../pages/project';
 import { staticdata } from '../testData/staticdata';
+import { ProjectDashboard } from '../pages/projectDashboard';
 
 let browser;
 let context;
@@ -12,6 +13,7 @@ let loginpage;
 let navmenu;
 let envData;
 let projectpage;
+let projectdashboardpage;
 
 test.describe('Project Girdview',() =>{
     test.beforeAll(async() =>{
@@ -22,6 +24,7 @@ test.describe('Project Girdview',() =>{
         loginpage = new LogInPage(page)
         navmenu = new NavigationPage(page)
         projectpage = new ProjectPage(page)
+        projectdashboardpage = new ProjectDashboard(page)
         const env = process.env.PLATFORM
         envData = credentials[env]
         const {firmname,accountUrl} = envData
@@ -37,10 +40,10 @@ test.describe('Project Girdview',() =>{
         const newPage = await projectpage.openProject(context,searchProject)
         await projectpage.openSection(newPage,'dashboard')
         expect(await newPage.url()).toContain('dashboard')   
-        await projectpage.downloadProjectDashboardInPdf(newPage)
+        await projectdashboardpage.downloadProjectDashboardInPdf(newPage)
         await expect(newPage.getByText('Dashboard print is downloaded successfully.'))
         .toBeVisible({timeout:20000})
-        await projectpage.downloadProjectDashboardInImage(newPage)
+        await projectdashboardpage.downloadProjectDashboardInImage(newPage)
         await expect(newPage.getByText('Dashboard print is downloaded successfully.'))
         .toBeVisible({timeout:20000})
     })
