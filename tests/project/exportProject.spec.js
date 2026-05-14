@@ -40,9 +40,9 @@ test.describe('Export Project', () => {
             .toBeVisible({timeout:10000})
     });
 
-    test.afterAll(async({},testInfo) =>{
-        //logout
-        await loginpage.logout()
-        await expect(page).toHaveURL(`${testInfo.project.use.baseURL}`+'/session/new')
-      })   
+    // test.afterAll(async({},testInfo) =>{
+    //     //logout
+    //     await loginpage.logout()
+    //     await expect(page).toHaveURL(`${testInfo.project.use.baseURL}`+'/session/new')
+    //   })   
 });

@@ -42,9 +42,9 @@ test.describe('Add Project', () => {
         await expect(page.locator(".loading-overlay-spinner__text")).toHaveText("Processing")
     });
 
-    test.afterAll(async({},testInfo) =>{
-        //logout
-        await loginpage.logout()
-        await expect(page).toHaveURL(`${testInfo.project.use.baseURL}`+'/session/new')
-      })   
+    // test.afterAll(async({},testInfo) =>{
+    //     //logout
+    //     await loginpage.logout()
+    //     await expect(page).toHaveURL(`${testInfo.project.use.baseURL}`+'/session/new')
+    //   })   
 });

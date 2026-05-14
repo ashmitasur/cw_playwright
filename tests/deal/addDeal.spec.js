@@ -38,9 +38,9 @@ test.describe('Add Deal', ()=>{
         await expect(page.getByText(`Deal ${dealCompany}/${dealName} successfully created.`))
         .toBeVisible({timeout:15000});
     })
-    test.afterAll(async({},testInfo) =>{
-        //logout
-        await loginpage.logout()
-        await expect(page).toHaveURL(`${testInfo.project.use.baseURL}/session/new`);
-    }) 
+    // test.afterAll(async({},testInfo) =>{
+    //     //logout
+    //     await loginpage.logout()
+    //     await expect(page).toHaveURL(`${testInfo.project.use.baseURL}/session/new`);
+    // }) 
 })

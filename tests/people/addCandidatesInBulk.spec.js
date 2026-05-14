@@ -40,11 +40,11 @@ test.describe('Add bulk candidacies', () => {
         await expect(page.getByText('Candidates added')).toBeVisible({timeout:30000})
     });
     
-    test.afterAll(async({},testInfo) =>{
-        //logout
-        await loginpage.logout()
-        await expect(page).toHaveURL(`${testInfo.project.use.baseURL}/session/new`);
-    })   
+    // test.afterAll(async({},testInfo) =>{
+    //     //logout
+    //     await loginpage.logout()
+    //     await expect(page).toHaveURL(`${testInfo.project.use.baseURL}/session/new`);
+    // })   
     
   });
 

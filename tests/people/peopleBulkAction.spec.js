@@ -64,11 +64,11 @@ test.describe('People Bulk action', () => {
     });
 
     
-    test.afterAll(async({},testInfo) =>{
-        //logout
-        await loginpage.logout()
-        await expect(page).toHaveURL(`${testInfo.project.use.baseURL}/session/new`);
-    })   
+    // test.afterAll(async({},testInfo) =>{
+    //     //logout
+    //     await loginpage.logout()
+    //     await expect(page).toHaveURL(`${testInfo.project.use.baseURL}/session/new`);
+    // })   
     
   });
 

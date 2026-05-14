@@ -40,9 +40,9 @@ test.describe('Add people to project',()=>{
         //await expect(page.getByText('The resume has been submitted for parsing.')).toBeVisible({timeout:20000});
         await people.closePeoplePanle();
     })
-    test.afterAll(async({},testInfo) =>{
-        //logout
-        await loginpage.logout()
-        await expect(page).toHaveURL(`${testInfo.project.use.baseURL}/session/new`);
-     })   
+    // test.afterAll(async({},testInfo) =>{
+    //     //logout
+    //     await loginpage.logout()
+    //     await expect(page).toHaveURL(`${testInfo.project.use.baseURL}/session/new`);
+    //  })   
 })

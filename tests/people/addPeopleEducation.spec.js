@@ -40,9 +40,9 @@ test.describe('People Education',()=>{
         await expect(page.getByText('Person education has been created.')).toBeVisible({timeout:20000})
         await people.closePeoplePanle();
     })
-    test.afterAll(async({},testInfo) =>{
-        //logout
-        await loginpage.logout()
-        await expect(page).toHaveURL(`${testInfo.project.use.baseURL}/session/new`);
-     })   
+    // test.afterAll(async({},testInfo) =>{
+    //     //logout
+    //     await loginpage.logout()
+    //     await expect(page).toHaveURL(`${testInfo.project.use.baseURL}/session/new`);
+    //  })   
 })

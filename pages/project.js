@@ -74,8 +74,11 @@ export class ProjectPage{
         const projectTitle = await this.page.getByTestId('project-title').getByText(projectName)
         await projectTitle.click()
         const newPage = await pagePromise
-        await expect(newPage.locator('.project-container__project-title'))
-        .toHaveText(new RegExp(projectName))
+        // await expect(newPage.locator('.project-container__project-title'))
+        // .toHaveText(new RegExp(projectName))
+        const header = newPage.locator('.project-container__project-title');
+        await header.waitFor({ state: 'visible', timeout: 10000 });
+        await expect(header).toContainText(projectName);
         return newPage
     }
     async openSection(newPage,sectionTitle){

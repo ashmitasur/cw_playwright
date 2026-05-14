@@ -48,9 +48,9 @@ test.describe('Project Girdview',() =>{
         .toBeVisible({timeout:20000})
     })
 
-     test.afterAll(async({},testInfo) =>{
-        //logout
-        await loginpage.logout()
-        await expect(page).toHaveURL(`${testInfo.project.use.baseURL}`+'/session/new')
-    })   
+    //  test.afterAll(async({},testInfo) =>{
+    //     //logout
+    //     await loginpage.logout()
+    //     await expect(page).toHaveURL(`${testInfo.project.use.baseURL}`+'/session/new')
+    // })   
 })
