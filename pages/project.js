@@ -22,7 +22,7 @@ export class ProjectPage{
         await this.page.locator('#projectName').fill(projectName);
         await this.selectDropdown('projectType');
         await this.page.locator('input[name="company"]').fill(companySearch);
-        await this.page.locator('ul > li[role="option"] > :nth-child(1)').click()
+        await this.page.locator('ul > li[role="option"]:nth-child(1)').click()
     }
     async submitAddProjectForm() {
         await this.page.locator('.form-actions__buttons > .pri-button').click();
