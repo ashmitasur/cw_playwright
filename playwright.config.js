@@ -15,8 +15,8 @@ import { defineConfig, devices } from '@playwright/test';
 const baseUrl =
   process.env.PLATFORM === 'qa'
     ? 'https://bsl.qa.clockworkrecruiting.dev'
-    : process.env.PLATFORM === 'demo'
-      ? 'https://testfirm.clockworkdemo.com'
+    : process.env.PLATFORM === 'prod'
+      ? 'https://bslprod.clockworkrecruiting.com'
       : 'https://bsl.qa.clockworkrecruiting.dev'
 export default defineConfig({
   testDir: './tests',

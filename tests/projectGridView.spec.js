@@ -34,7 +34,7 @@ test.describe('Project Girdview',() =>{
         await loginpage.selectFirm(firmname)
     })
 
-    test("Open Project Gridview and add Candidate", async({},testInfo)=>{
+    test("Open Project Gridview and add/remove Candidate", async({},testInfo)=>{
         await navmenu.goToPage('projects/gridview')
         await expect(page).toHaveURL(`${testInfo.project.use.baseURL}`+'/firm/projects/gridview')  
         const{searchProject,candidateName} = staticdata      

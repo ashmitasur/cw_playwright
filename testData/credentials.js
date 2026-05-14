@@ -7,7 +7,12 @@ export const credentials = {
       firmname: 'AIW (AI Workspace)',
     },
 
-    demo: {
+    prod: {
+      //url: 'https://bsl.clockworkrecruiting.com',
+      accountUrl: 'https://account.clockworkrecruiting.com/accounts',
+      email: 'ashmita+cypress@clockworkrecruiting.com',
+      password: 'KREETI@12345',
+      firmname: 'AIW (AI Workspace)',
      
     },
 

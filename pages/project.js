@@ -4,8 +4,8 @@ export class ProjectPage{
         this.page = page  
         this.keyWordSearch = page.locator("[class='project-list-view__header-section__keyword-search'] input[id='text-search-input']");
         this.bulkUpdateBtn = page.locator('.project-list-view__bulk-update-btn');  
-        this.threeDotsMenu = page.locator('button#right-menu');
-        this.addProjectBtn = page.locator('[data-testid="add"]');
+        this.threeDotsMenu = page.locator('button[title="Menu"]');
+        this.addProjectBtn = page.locator('[role="menuitem"]', {hasText: 'Add Project'});
         this.exportProjectBtn = page.locator('[data-testid="export"]');
     }
     // Add project

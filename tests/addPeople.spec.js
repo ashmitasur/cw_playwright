@@ -41,7 +41,7 @@ test.describe('Project view', () => {
         await people.submit();      
         await expect(page.locator('a.new-project-form--success-message-link')).toHaveText(personName);
     })
-      test('add-person-with-vcard-import', async ({},testInfo) => {
+    test('add-person-with-vcard-import', async ({},testInfo) => {
         navmenu = new NavigationPage(page)
         const people = new PeoplePage(page);
         await navmenu.goToPage('people')

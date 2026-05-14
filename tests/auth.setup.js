@@ -19,11 +19,11 @@ setup('authenticate', async({baseURL}) => {
 
     loginpage = new LogInPage(page)
     
-    const env = 'qa'
+    const env = process.env.PLATFORM
     envData = credentials[env]
     const {email,password} = envData
     //const { baseURL } = testInfo.project.use.baseURL
-    console.log(baseURL)
+    //console.log(baseURL)
 
     // Go to login page
     await loginpage.gotoLoginPage(baseURL) 
