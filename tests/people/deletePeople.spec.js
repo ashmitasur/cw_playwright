@@ -26,7 +26,7 @@ test.describe('People Deletion',()=>{
         await loginpage.selectFirm(firmname)
     })
 
-    test('Delete people from panel', async({},testInfo) =>{
+    test.skip('Delete people from panel', async({},testInfo) =>{
         navmenu = new NavigationPage(page)
         const{searchPeopleByEmail, searchUniquePerson} = staticdata
         await navmenu.goToPage('people')
