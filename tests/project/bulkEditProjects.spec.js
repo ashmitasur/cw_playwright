@@ -1,9 +1,9 @@
 import { test, expect, chromium } from '@playwright/test';
-import { LogInPage } from '../pages/logInPage';
-import { credentials } from '../testData/credentials';
-import { NavigationPage } from '../pages/navigationPage';
-import { ProjectPage } from '../pages/project';
-import { staticdata } from '../testData/staticdata';
+import { LogInPage } from '../../pages/logInPage';
+import { credentials } from '../../testData/credentials';
+import { NavigationPage } from '../../pages/navigationPage';
+import { ProjectPage } from '../../pages/project';
+import { staticdata } from '../../testData/staticdata';
 
 let browser;
 let context;
@@ -13,8 +13,7 @@ let navmenu;
 let envData;
 let projectpage;
 
-
-test.describe('Add Project', () => {
+test.describe('bulk edit project', () => {
     test.beforeAll(async()=>{
         browser = await chromium.launch({ headless: false})
         context = await browser.newContext()
@@ -31,16 +30,18 @@ test.describe('Add Project', () => {
         await loginpage.selectFirm(firmname)
         })
         
-    test('add-project-with-data', async ({},testInfo) => {
+    test('add country in bulk', async ({},testInfo) => {
+        const {serachProjectName} = staticdata
         projectpage = new ProjectPage(page)
-        const {projectName,companySearch,location} = staticdata
         await navmenu.goToPage('projects/gridview')
         await expect(page).toHaveURL(`${testInfo.project.use.baseURL}`+'/firm/projects/gridview')
-        await projectpage.clickAddProject();
-        await projectpage.fillProjectForm(projectName,companySearch,location);
-        await projectpage.submitAddProjectForm();
-        await expect(page.locator(".loading-overlay-spinner__text")).toHaveText("Processing")
-    });
+        await projectpage.searchProject(serachProjectName)
+        await projectpage.selectFirstNProjects(3)
+        await projectpage.bulkEdit()
+        await projectpage.bulkUpdateSave('country')        
+        await expect(page.getByText('We are working on your changes')).toBeVisible({timeout:10000})
+        await projectpage.closeBulkEditModal()
+    })
 
     test.afterAll(async({},testInfo) =>{
         //logout

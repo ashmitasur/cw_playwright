@@ -1,8 +1,8 @@
 import { test, expect, chromium } from '@playwright/test';
-import { credentials } from '../testData/credentials';
-import { LogInPage } from '../pages/logInPage';
-import { NavigationPage } from '../pages/navigationPage';
-import { PeoplePage } from '../pages/peoplePage';
+import { credentials } from '../../testData/credentials';
+import { LogInPage } from '../../pages/logInPage';
+import { NavigationPage } from '../../pages/navigationPage';
+import { ProjectPage } from '../../pages/project';
 
 
 let browser;
@@ -11,10 +11,10 @@ let page;
 let loginpage;
 let navmenu;
 let envData;
-let peoplepage;
+let projectpage;
 
 
-test.describe('Export People', () => {
+test.describe('Export Project', () => {
     test.beforeAll(async()=>{
         browser = await chromium.launch({ headless: false})
         context = await browser.newContext()
@@ -31,13 +31,12 @@ test.describe('Export People', () => {
         await loginpage.selectFirm(firmname)
         })
         
-    test('Export people in csv', async ({},testInfo) => {
-        peoplepage = new PeoplePage(page)
-        await navmenu.goToPage('people')
-        await expect(page).toHaveURL(`${testInfo.project.use.baseURL}`+'/firm/people')
-        await peoplepage.clickOn3Dots()
-        await peoplepage.exportPeople()
-        await expect(page.getByText("We have started to export your contacts to CSV. We will email you when the job finishes."))
+    test('Export projects', async ({},testInfo) => {
+        projectpage = new ProjectPage(page)
+        await navmenu.goToPage('projects/gridview')
+        await expect(page).toHaveURL(`${testInfo.project.use.baseURL}`+'/firm/projects/gridview')
+        await projectpage.exportProject()
+        await expect(page.getByText("We have started to export your projects to excel. We will email you when the job finishes."))
             .toBeVisible({timeout:10000})
     });
 

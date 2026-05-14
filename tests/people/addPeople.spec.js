@@ -1,9 +1,9 @@
 import { test, expect, chromium } from '@playwright/test';
-import { LogInPage } from '../pages/logInPage';
-import { credentials } from '../testData/credentials';
-import { NavigationPage } from '../pages/navigationPage';
-import { PeoplePage } from '../pages/peoplePage';
-import { staticdata } from '../testData/staticdata';
+import { LogInPage } from '../../pages/logInPage';
+import { credentials } from '../../testData/credentials';
+import { NavigationPage } from '../../pages/navigationPage';
+import { PeoplePage } from '../../pages/peoplePage';
+import { staticdata } from '../../testData/staticdata';
 
 let browser;
 let context;
@@ -41,7 +41,7 @@ test.describe('Project view', () => {
         await people.submit();      
         await expect(page.locator('a.new-project-form--success-message-link')).toHaveText(personName);
     })
-    test('add-person-with-vcard-import', async ({},testInfo) => {
+    test.only('add-person-with-vcard-import', async ({},testInfo) => {
         navmenu = new NavigationPage(page)
         const people = new PeoplePage(page);
         await navmenu.goToPage('people')

@@ -1,9 +1,9 @@
 import { test, expect, chromium } from '@playwright/test';
-import { LogInPage } from '../pages/logInPage';
-import { credentials } from '../testData/credentials';
-import { NavigationPage } from '../pages/navigationPage';
-import { PeoplePanel } from '../pages/peoplePanel';
-import { staticdata } from '../testData/staticdata';
+import { LogInPage } from '../../pages/logInPage';
+import { credentials } from '../../testData/credentials';
+import { NavigationPage } from '../../pages/navigationPage';
+import { PeoplePanel } from '../../pages/peoplePanel';
+import { staticdata } from '../../testData/staticdata';
 
 let browser;
 let context;

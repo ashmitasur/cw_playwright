@@ -1,10 +1,10 @@
 import { test, expect, chromium } from '@playwright/test';
-import { LogInPage } from '../pages/logInPage';
-import { credentials } from '../testData/credentials';
-import { NavigationPage } from '../pages/navigationPage';
-import { ProjectPage } from '../pages/project';
-import { staticdata } from '../testData/staticdata';
-import { ProjectDashboard } from '../pages/projectDashboard';
+import { LogInPage } from '../../pages/logInPage';
+import { credentials } from '../../testData/credentials';
+import { NavigationPage } from '../../pages/navigationPage';
+import { ProjectPage } from '../../pages/project';
+import { staticdata } from '../../testData/staticdata';
+import { ProjectDashboard } from '../../pages/projectDashboard';
 
 let browser;
 let context;
