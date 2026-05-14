@@ -11,8 +11,6 @@ export const staticdata = {
     dealCompany: "Innoware",
     dealSource: "Personal",
     dealAbout: "This deal have been added by playwright automation script.",
-    //adminName: "Dr. Grace Jacobson",
-    //adminEmail: "Meda83@hotmail.com",
     companyName: `TestCompany_${Date.now()}`,
     companyDetails: "This company have been added by playwright automation script.",
     companySubtitle: "Playwright subtitle",
@@ -33,5 +31,7 @@ export const staticdata = {
     emailContent: 'Hello',
     tagName: "UTF8",
     candidateName: 'Natalia',
-    projectWithCandidate: 'Investor Mobility Specialist'
+    projectWithCandidate: 'Investor Mobility Specialist',
+    searchDeal: 'Deal_palywright',
+    dealSize: '100'
   }

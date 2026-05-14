@@ -3,6 +3,10 @@ export class DealPage{
     constructor(page){
         this.page =page
         this.threeDotsMenu = page.locator('button#right-menu')
+        this.dealList = page.locator('.new-v2-view');
+        this.profileCard = page.locator('[data-key="profile"] > .card-view > div > .card-view__body');
+        this.dealSizeInput = page.locator('input[placeholder="Deal Size"]');
+        this.saveButton = page.locator('.pri-button');
     }
     async clickAddDeal() {
         await this.threeDotsMenu.click();
@@ -22,5 +26,16 @@ export class DealPage{
     async submitAddDealForm() {
         await expect(this.page.locator('.form-actions__buttons > .pri-button')).toBeEnabled()
         await this.page.locator('.form-actions__buttons > .pri-button').click();
+    }
+    async selectDealByName(dealName) {
+        await this.dealList.filter({ hasText: dealName }).click();
+    }
+    async updateDealProfile(size){
+        await this.profileCard.click();
+        await this.dealSizeInput.fill(size);
+        await this.saveButton.click()
+    }
+    async closeDealPanel(){
+        await this.page.locator('.side-panel__controls__item.close-item').click()
     }
 }
