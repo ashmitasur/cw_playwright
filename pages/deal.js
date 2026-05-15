@@ -9,6 +9,8 @@ export class DealPage{
         this.saveButton = page.locator('.pri-button');
         this.dealDatesContainer = page.locator('.deal-dates__container__body');
         this.activationDateInput = page.locator('#activationDate');
+        this.addTargetCompaniesBtn = page.getByRole('button', {name: '+ Add Target Companies'});
+        this.companyListFirstItem = page.locator('.list-items > :nth-child(1)');
     }
     async clickAddDeal() {
         await this.threeDotsMenu.click();
@@ -41,6 +43,11 @@ export class DealPage{
         await this.dealDatesContainer.click();
         await this.activationDateInput.fill(date)
         await this.saveButton.click()
+    }
+    async addDealCompanies(){
+       await this.addTargetCompaniesBtn.click()
+       await this.companyListFirstItem.click()
+       await this.saveButton.click()
     }
     async closeDealPanel(){
         await this.page.locator('.side-panel__controls__item.close-item').click()
