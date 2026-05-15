@@ -33,5 +33,6 @@ export const staticdata = {
     candidateName: 'Natalia',
     projectWithCandidate: 'Investor Mobility Specialist',
     searchDeal: 'Deal_palywright',
-    dealSize: '100'
+    dealSize: '100',
+    dealDate: '07/01/2050'
   }

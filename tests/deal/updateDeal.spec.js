@@ -26,14 +26,17 @@ test.describe('Add Deal', ()=>{
         await loginpage.gotoAccountsPage(accountUrl)
         await loginpage.selectFirm(firmname)
     })
-    test('Update deal',async ({},testInfo)=>{
+    test('Update deal size and date',async ({},testInfo)=>{
         navmenu = new NavigationPage(page)
-        const{searchDeal,dealSize} = staticdata
+        const{searchDeal,dealSize, dealDate} = staticdata
         await navmenu.goToPage('deals')
         await expect(page).toHaveURL(`${testInfo.project.use.baseURL}`+'/firm/deals')
         const dealpage = new DealPage(page)
         await dealpage.selectDealByName(searchDeal)
         await dealpage.updateDealProfile(dealSize)
+        await expect(page.getByText(`Deal has been updated successfully.`))
+        .toBeVisible({timeout:15000});
+        await dealpage.updateDealdate(dealDate)
         await expect(page.getByText(`Deal has been updated successfully.`))
         .toBeVisible({timeout:15000});
         await dealpage.closeDealPanel()

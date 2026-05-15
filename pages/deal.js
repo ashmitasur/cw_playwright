@@ -7,6 +7,8 @@ export class DealPage{
         this.profileCard = page.locator('[data-key="profile"] > .card-view > div > .card-view__body');
         this.dealSizeInput = page.locator('input[placeholder="Deal Size"]');
         this.saveButton = page.locator('.pri-button');
+        this.dealDatesContainer = page.locator('.deal-dates__container__body');
+        this.activationDateInput = page.locator('#activationDate');
     }
     async clickAddDeal() {
         await this.threeDotsMenu.click();
@@ -33,6 +35,11 @@ export class DealPage{
     async updateDealProfile(size){
         await this.profileCard.click();
         await this.dealSizeInput.fill(size);
+        await this.saveButton.click()
+    }
+    async updateDealdate(date){
+        await this.dealDatesContainer.click();
+        await this.activationDateInput.fill(date)
         await this.saveButton.click()
     }
     async closeDealPanel(){
