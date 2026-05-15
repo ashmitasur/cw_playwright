@@ -14,6 +14,10 @@ export class DealPage{
         this.activationDateInput = page.locator('#activationDate');
         this.addTargetCompaniesBtn = page.getByRole('button', {name: '+ Add Target Companies'});
         this.companyListFirstItem = page.locator('.list-items > button:nth-child(1)');
+        this.addDocumentBtn = page.getByRole('button', {name: '+ Add Document'});
+        this.getDocumentList = page.locator('ul.document-card > li:nth-child(1)');
+        this.docDeleteBtn = page.getByTestId('active-form').getByRole('button', {name: 'Delete'});
+        this.deleteDialog = page.getByRole('alertdialog')
     }
     async clickAddDeal() {
         await this.threeDotsMenu.click();
@@ -56,6 +60,22 @@ export class DealPage{
        await this.addTargetCompaniesBtn.click()
        await this.companyListFirstItem.click()
        await this.saveButton.click()
+    }
+    async addDealDoc(filepath){
+        await this.addDocumentBtn.click()
+        const fileChooserPromise = this.page.waitForEvent('filechooser')
+        // click the dropzone
+        await this.page.locator('.dz-message').click()
+        const fileChooser = await fileChooserPromise
+        await fileChooser.setFiles(filepath)
+        await this.formBtn.click()
+    }
+    async deleteDealDoc(){
+        await this.getDocumentList.click()        
+        await this.docDeleteBtn.click()
+        await expect(this.deleteDialog).toBeVisible();
+        await expect(this.deleteDialog).toContainText('Delete Document');
+        await this.deleteDialog.locator('.delete-confirm-btn').click();
     }
     async closeDealPanel(){
         await this.page.locator('.side-panel__controls__item.close-item').click()
