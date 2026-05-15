@@ -3,6 +3,9 @@ export class DealPage{
     constructor(page){
         this.page =page
         this.threeDotsMenu = page.locator('button#right-menu')
+        this.addDealBtn = page.locator('[data-testid="add"]')
+        this.formBtn = page.locator('.form-actions__buttons > .pri-button')
+        this.exportDealBtn = page.locator('[data-testid="export"]')
         this.dealList = page.locator('.new-v2-view');
         this.profileCard = page.locator('[data-key="profile"] > .card-view > div > .card-view__body');
         this.dealSizeInput = page.locator('input[placeholder="Deal Size"]');
@@ -14,8 +17,8 @@ export class DealPage{
     }
     async clickAddDeal() {
         await this.threeDotsMenu.click();
-        await expect(this.page.locator('[data-testid="add"]')).toBeVisible();
-        await this.page.locator('[data-testid="add"]').click();
+        await expect(this.addDealBtn).toBeVisible();
+        await this.addDealBtn.click();
     }
     async fillDealForm(dealName,dealCompany){
         await this.page.locator("#name").fill(dealName)
@@ -28,8 +31,13 @@ export class DealPage{
         await this.page.getByRole('menuitem').nth(0).click()
     }
     async submitAddDealForm() {
-        await expect(this.page.locator('.form-actions__buttons > .pri-button')).toBeEnabled()
-        await this.page.locator('.form-actions__buttons > .pri-button').click();
+        await expect(this.formBtn).toBeEnabled()
+        await this.formBtn.click();
+    }
+    async exportDeal(){
+        await this.threeDotsMenu.click()
+        await this.exportDealBtn.click()
+        await this.formBtn.click()
     }
     async selectDealByName(dealName) {
         await this.dealList.filter({ hasText: dealName }).click();
