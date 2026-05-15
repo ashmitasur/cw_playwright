@@ -2,8 +2,8 @@ import { expect } from '@playwright/test';
 export class CandidatePage{
     constructor(page){
         this.page = page
-        this.exportReportButton = '#export_report > span';
-        this.confirmExportButton = '#export_report_form > .export_report_button';
+        this.exportReportButton = 'a#export_report';
+        this.confirmExportButton = 'a.export_report_button:has-text("Generate Report")';
     }
 
     async exportReport(newPage) {
