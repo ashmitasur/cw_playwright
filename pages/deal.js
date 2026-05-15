@@ -10,7 +10,7 @@ export class DealPage{
         this.dealDatesContainer = page.locator('.deal-dates__container__body');
         this.activationDateInput = page.locator('#activationDate');
         this.addTargetCompaniesBtn = page.getByRole('button', {name: '+ Add Target Companies'});
-        this.companyListFirstItem = page.locator('.list-items > :nth-child(1)');
+        this.companyListFirstItem = page.locator('.list-items > button:nth-child(1)');
     }
     async clickAddDeal() {
         await this.threeDotsMenu.click();
