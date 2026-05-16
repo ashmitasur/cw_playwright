@@ -25,12 +25,19 @@ export class DealPage{
         this.editOption = page.locator('[data-testid="edit"]');
         this.replyOption = page.locator('[data-testid="reply"]');
         this.deleteOption = page.locator('[data-testid="delete"]');
-        this.notePanleBtn = page.locator('[data-testid="note-text"]')
+        this.notePanleBtn = page.locator('[data-testid="note-text"]');
+        this.addProjectBtn = page.locator('.deal-project__add-action');
+        this.editProjectOption = page.locator('.value-with-info__value').first()
+        this.deleteProjectBtn = page.locator('.deal-header-form a.secondary-delete-button')
         
     }
     async selectDropdown(buttonId) {
         await this.page.locator(`button[aria-label="${buttonId}"]`).click();
         await this.page.getByRole('menuitem').nth(0).click()
+    }
+    async searchNSelectDD(buttonId) {
+        await this.page.locator(`button[id="${buttonId}"]`).click();
+        await this.page.locator('ul li[role="option"]').nth(1).click()
     }
     async addDeal(dealName,dealCompany){
         await this.threeDotsMenu.click();
@@ -117,6 +124,15 @@ export class DealPage{
         await this.deleteOption.click();
         await expect(this.deleteDialog).toBeVisible();
         await this.deleteDialog.locator('.delete-confirm-btn').click();
+    }
+    async addProjectToDeal() {
+        await this.addProjectBtn.click();
+        await this.searchNSelectDD('project')
+        await this.saveButton.click();
+    }
+    async deleteProjectFromDeal(){
+        await this.editProjectOption.click()
+        await this.deleteProjectBtn.click()
     }
 
 }
