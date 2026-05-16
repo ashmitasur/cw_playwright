@@ -33,7 +33,7 @@ test.describe('Deal Team', ()=>{
         await expect(page).toHaveURL(`${testInfo.project.use.baseURL}`+'/firm/deals')
         const dealpage = new DealPage(page)
         await dealpage.selectDealByName(searchDeal)
-        await dealpage.addTeam()      
+        await dealpage.addTargetPeople()     
         await expect(page.getByText(`has been added`)).toBeVisible({timeout:15000});
         await dealpage.closeDealPanel()
     })
