@@ -3,7 +3,7 @@ export const staticdata = {
     personEmail: `ashmita+${Date.now()}@clockworkrecruiting.com`,
     projectName: `Test Project ${Date.now()}`,
     searchProject: 'Central Communications Assistant',
-    projectComapny: 'AIW (AI Workspace)',
+    company: 'AIW (AI Workspace)',
     companySearch: 'Kreeti',
     location: 'New York',
     testNote: "This note have been added by playwright automation script.",

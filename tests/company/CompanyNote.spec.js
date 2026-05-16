@@ -12,35 +12,38 @@ let loginpage;
 let navmenu;
 let envData;
 
-test.describe('Add Company',() => {
-    test.beforeEach(async({}) =>{
-        browser = await chromium.launch({headless:false});
+test.describe('Company Note', ()=>{
+    test.beforeEach(async({})=>{
+        browser = await chromium.launch({ headless: false})
         context = await browser.newContext()
         page = await context.newPage()
-
+            
         loginpage = new LogInPage(page)
-
+                
         const env = process.env.PLATFORM
         envData = credentials[env]
         const {firmname,accountUrl} = envData
         await loginpage.gotoAccountsPage(accountUrl)
         await loginpage.selectFirm(firmname)
     })
-    test('Add new company',async ({},testInfo)=>{
+    test('Add, update, relpy and delete note',async ({},testInfo)=>{
         navmenu = new NavigationPage(page)
-        const{companyName,companySubtitle} = staticdata
+        const{company,note} = staticdata
         await navmenu.goToPage('companies')
         await expect(page).toHaveURL(`${testInfo.project.use.baseURL}`+'/firm/companies')
         const companypage = new CompanyPage(page)
-        await companypage.addCompany(companyName,companySubtitle)
-        await expect(page.getByText(`Company ${companyName} successfully created.`))
-        .toBeVisible({timeout:10000});
+        await companypage.selectCompanyByName(company)
+        await companypage.openNotePanle()
+        await companypage.addNote(note)        
+        await expect(page.getByText('Note added')).toBeVisible();
+        await companypage.editNote(note)
+        await companypage.replyToNote(note)
+        await expect(page.getByText('Note added')).toBeVisible();
+        await companypage.deleteNote()
     })
-
     // test.afterAll(async({},testInfo) =>{
     //     //logout
     //     await loginpage.logout()
     //     await expect(page).toHaveURL(`${testInfo.project.use.baseURL}/session/new`);
     // }) 
-
 })

@@ -12,35 +12,32 @@ let loginpage;
 let navmenu;
 let envData;
 
-test.describe('Add Company',() => {
-    test.beforeEach(async({}) =>{
-        browser = await chromium.launch({headless:false});
+test.describe('Export Deal', ()=>{
+    test.beforeEach(async({})=>{
+        browser = await chromium.launch({ headless: false})
         context = await browser.newContext()
         page = await context.newPage()
-
+            
         loginpage = new LogInPage(page)
-
+                
         const env = process.env.PLATFORM
         envData = credentials[env]
         const {firmname,accountUrl} = envData
         await loginpage.gotoAccountsPage(accountUrl)
         await loginpage.selectFirm(firmname)
     })
-    test('Add new company',async ({},testInfo)=>{
+    test('Export deal',async ({},testInfo)=>{
         navmenu = new NavigationPage(page)
-        const{companyName,companySubtitle} = staticdata
         await navmenu.goToPage('companies')
         await expect(page).toHaveURL(`${testInfo.project.use.baseURL}`+'/firm/companies')
         const companypage = new CompanyPage(page)
-        await companypage.addCompany(companyName,companySubtitle)
-        await expect(page.getByText(`Company ${companyName} successfully created.`))
-        .toBeVisible({timeout:10000});
+        await companypage.exportCompany()
+        await expect(page.getByText("We have started to export your companies to excel. We will email you when the job finishes."))
+        .toBeVisible({timeout:15000});
     })
-
     // test.afterAll(async({},testInfo) =>{
     //     //logout
     //     await loginpage.logout()
     //     await expect(page).toHaveURL(`${testInfo.project.use.baseURL}/session/new`);
     // }) 
-
 })

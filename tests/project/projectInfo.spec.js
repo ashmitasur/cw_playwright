@@ -34,12 +34,12 @@ test.describe('Project Info', () => {
     test('should navigate to Projects info page', async ({},testInfo) => {
         await navmenu.goToPage('projects/gridview')
         await expect(page).toHaveURL(`${testInfo.project.use.baseURL}`+'/firm/projects/gridview')
-        const{searchProject,projectComapny} = staticdata;
+        const{searchProject,company} = staticdata;
         const newPage = await projectpage.openProject(context,searchProject)
         await projectpage.openSection(newPage,'project_info')
         expect(await newPage.url()).toContain('project_info')  
         await expect(newPage.locator('h2').first())
-        .toHaveText(`${searchProject} for ${projectComapny}`, { timeout: 20000 });  
+        .toHaveText(`${searchProject} for ${company}`, { timeout: 20000 });  
     })    
     
     // test.afterAll(async({},testInfo) =>{
