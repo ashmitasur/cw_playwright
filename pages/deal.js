@@ -19,22 +19,18 @@ export class DealPage{
         this.docDeleteBtn = page.getByTestId('active-form').getByRole('button', {name: 'Delete'});
         this.deleteDialog = page.getByRole('alertdialog')
     }
-    async clickAddDeal() {
-        await this.threeDotsMenu.click();
-        await expect(this.addDealBtn).toBeVisible();
-        await this.addDealBtn.click();
-    }
-    async fillDealForm(dealName,dealCompany){
-        await this.page.locator("#name").fill(dealName)
-        await this.page.locator('input[name="company"]').fill(dealCompany);
-        await this.selectDropdown('Deal Status')
-        await this.selectDropdown('Deal Stage')
-    }
     async selectDropdown(buttonId) {
         await this.page.locator(`button[aria-label="${buttonId}"]`).click();
         await this.page.getByRole('menuitem').nth(0).click()
     }
-    async submitAddDealForm() {
+    async addDeal(dealName,dealCompany){
+        await this.threeDotsMenu.click();
+        await expect(this.addDealBtn).toBeVisible();
+        await this.addDealBtn.click();
+        await this.page.locator("#name").fill(dealName)
+        await this.page.locator('input[name="company"]').fill(dealCompany);
+        await this.selectDropdown('Deal Status')
+        await this.selectDropdown('Deal Stage')
         await expect(this.formBtn).toBeEnabled()
         await this.formBtn.click();
     }

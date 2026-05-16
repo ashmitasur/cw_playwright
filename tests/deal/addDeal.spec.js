@@ -32,9 +32,7 @@ test.describe('Add Deal', ()=>{
         await navmenu.goToPage('deals')
         await expect(page).toHaveURL(`${testInfo.project.use.baseURL}`+'/firm/deals')
         const dealpage = new DealPage(page)
-        dealpage.clickAddDeal()
-        dealpage.fillDealForm(dealName,dealCompany)
-        dealpage.submitAddDealForm()
+        await dealpage.addDeal(dealName,dealCompany)
         await expect(page.getByText(`Deal ${dealCompany}/${dealName} successfully created.`))
         .toBeVisible({timeout:15000});
     })
