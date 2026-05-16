@@ -34,5 +34,5 @@ export const staticdata = {
     projectWithCandidate: 'Investor Mobility Specialist',
     searchDeal: 'Deal_palywright',
     dealSize: '100',
-    dealDate: '07/01/2050'
+    dealDate: `${Date.now()}`
   }

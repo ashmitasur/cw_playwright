@@ -73,7 +73,7 @@ export class DealPage{
     }
     async addDealCompanies(){
        await this.addTargetCompaniesBtn.click()
-       await this.companyListFirstItem.click()
+       await this.multiSelectListFirstItem.click()
        await this.saveButton.click()
     }
     async addTeam(){
