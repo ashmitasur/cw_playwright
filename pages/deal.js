@@ -18,6 +18,15 @@ export class DealPage{
         this.getDocumentList = page.locator('ul.document-card > li:nth-child(1)');
         this.docDeleteBtn = page.getByTestId('active-form').getByRole('button', {name: 'Delete'});
         this.deleteDialog = page.getByRole('alertdialog')
+        this.ckEditor = page.locator('.ck-content[contenteditable="true"]');
+        this.addNoteBtn = page.locator('.deal-notes-list__add');
+        this.noteActionMenu = page.locator('button[id$="_dealNotes"]').first()
+        this.ddMenu = page.locator('[data-slot="dropdown-menu-content"]')
+        this.editOption = page.locator('[data-testid="edit"]');
+        this.replyOption = page.locator('[data-testid="reply"]');
+        this.deleteOption = page.locator('[data-testid="delete"]');
+        this.notePanleBtn = page.locator('[data-testid="note-text"]')
+        
     }
     async selectDropdown(buttonId) {
         await this.page.locator(`button[aria-label="${buttonId}"]`).click();
@@ -76,4 +85,38 @@ export class DealPage{
     async closeDealPanel(){
         await this.page.locator('.side-panel__controls__item.close-item').click()
     }
+    async openNotePanle(){
+        await this.notePanleBtn.click()
+    }
+    async addNote(note) {
+        await this.addNoteBtn.click();
+        await this.ckEditor.click();
+        await this.ckEditor.type(note);
+        await this.saveButton.click();
+    }
+    async editNote(note) {
+        await this.noteActionMenu.click();
+        await expect(this.ddMenu).toBeVisible()
+        await this.editOption.click();
+        await this.ckEditor.click();
+        await this.ckEditor.type(note+"edited");
+        await this.saveButton.click();
+        await expect(this.ckEditor).not.toBeVisible();
+    }
+    async replyToNote(note) {
+        await this.noteActionMenu.click();
+        await expect(this.ddMenu).toBeVisible()
+        await this.replyOption.click();
+        await this.ckEditor.click();
+        await this.ckEditor.type(note+"reply");
+        await this.saveButton.click();
+    }
+     async deleteNote() {
+        await this.noteActionMenu.click();
+        await expect(this.ddMenu).toBeVisible()
+        await this.deleteOption.click();
+        await expect(this.deleteDialog).toBeVisible();
+        await this.deleteDialog.locator('.delete-confirm-btn').click();
+    }
+
 }
