@@ -24,11 +24,11 @@ export class DealPage{
         this.ckEditor = page.locator('.ck-content[contenteditable="true"]');
         this.addNoteBtn = page.locator('.deal-notes-list__add');
         this.noteActionMenu = page.locator('button[id$="_dealNotes"]').first()
-        this.ddMenu = page.locator('[data-slot="dropdown-menu-content"]')
+        this.notePanelDdMenu = page.locator('[data-slot="dropdown-menu-content"]')
         this.editOption = page.locator('[data-testid="edit"]');
         this.replyOption = page.locator('[data-testid="reply"]');
         this.deleteOption = page.locator('[data-testid="delete"]');
-        this.notePanleBtn = page.locator('[data-testid="note-text"]');
+        this.notePanleOpenBtn = page.locator('[data-testid="note-text"]');
         this.addProjectBtn = page.locator('.deal-project__add-action');
         this.editProjectOption = page.locator('.value-with-info__value').first()
         this.deleteProjectBtn = page.locator('.deal-header-form a.secondary-delete-button')
@@ -106,7 +106,7 @@ export class DealPage{
         await this.page.locator('.side-panel__controls__item.close-item').click()
     }
     async openNotePanle(){
-        await this.notePanleBtn.click()
+        await this.notePanleOpenBtn.click()
     }
     async addNote(note) {
         await this.addNoteBtn.click();
@@ -116,7 +116,7 @@ export class DealPage{
     }
     async editNote(note) {
         await this.noteActionMenu.click();
-        await expect(this.ddMenu).toBeVisible()
+        await expect(this.notePanelDdMenu).toBeVisible()
         await this.editOption.click();
         await this.ckEditor.click();
         await this.ckEditor.type(note+"edited");
@@ -125,7 +125,7 @@ export class DealPage{
     }
     async replyToNote(note) {
         await this.noteActionMenu.click();
-        await expect(this.ddMenu).toBeVisible()
+        await expect(this.notePanelDdMenu).toBeVisible()
         await this.replyOption.click();
         await this.ckEditor.click();
         await this.ckEditor.type(note+"reply");
@@ -133,7 +133,7 @@ export class DealPage{
     }
      async deleteNote() {
         await this.noteActionMenu.click();
-        await expect(this.ddMenu).toBeVisible()
+        await expect(this.notePanelDdMenu).toBeVisible()
         await this.deleteOption.click();
         await expect(this.deleteDialog).toBeVisible();
         await this.deleteDialog.locator('.delete-confirm-btn').click();
