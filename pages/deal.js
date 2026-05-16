@@ -13,7 +13,8 @@ export class DealPage{
         this.dealDatesContainer = page.locator('.deal-dates__container__body');
         this.activationDateInput = page.locator('#activationDate');
         this.addTargetCompaniesBtn = page.getByRole('button', {name: '+ Add Target Companies'});
-        this.companyListFirstItem = page.locator('.list-items > button:nth-child(1)');
+        this.multiSelectListFirstItem = page.locator('.list-items > button:nth-child(1)');
+        this.addTargetTeamBtn = page.getByRole('button', {name: '+ Add Team'});
         this.addDocumentBtn = page.getByRole('button', {name: '+ Add Document'});
         this.getDocumentList = page.locator('ul.document-card > li:nth-child(1)');
         this.docDeleteBtn = page.getByTestId('active-form').getByRole('button', {name: 'Delete'});
@@ -71,6 +72,11 @@ export class DealPage{
     async addDealCompanies(){
        await this.addTargetCompaniesBtn.click()
        await this.companyListFirstItem.click()
+       await this.saveButton.click()
+    }
+    async addTeam(){
+       await this.addTargetTeamBtn.click()
+       await this.multiSelectListFirstItem.click()
        await this.saveButton.click()
     }
     async addDealDoc(filepath){
