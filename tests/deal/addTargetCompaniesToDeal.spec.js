@@ -12,7 +12,7 @@ let loginpage;
 let navmenu;
 let envData;
 
-test.describe('Add Deal', ()=>{
+test.describe('Deal taget Companies', ()=>{
     test.beforeEach(async({})=>{
         browser = await chromium.launch({ headless: false})
         context = await browser.newContext()
@@ -26,7 +26,7 @@ test.describe('Add Deal', ()=>{
         await loginpage.gotoAccountsPage(accountUrl)
         await loginpage.selectFirm(firmname)
     })
-    test('Update deal size and date',async ({},testInfo)=>{
+    test('Add Target Companies to deal',async ({},testInfo)=>{
         navmenu = new NavigationPage(page)
         const{searchDeal} = staticdata
         await navmenu.goToPage('deals')

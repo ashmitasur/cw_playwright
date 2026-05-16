@@ -13,7 +13,7 @@ let navmenu;
 let envData;
 
 
-test.describe('Project view', () => {
+test.describe('Add Person', () => {
     test.beforeEach(async({})=>{
     browser = await chromium.launch({ headless: false})
     context = await browser.newContext()

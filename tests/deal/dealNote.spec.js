@@ -12,7 +12,7 @@ let loginpage;
 let navmenu;
 let envData;
 
-test.describe('Add Deal', ()=>{
+test.describe('Deal Note', ()=>{
     test.beforeEach(async({})=>{
         browser = await chromium.launch({ headless: false})
         context = await browser.newContext()

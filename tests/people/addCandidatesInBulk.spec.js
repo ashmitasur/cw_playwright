@@ -29,7 +29,7 @@ test.describe('Add bulk candidacies', () => {
     await loginpage.selectFirm(firmname)
     })
 
-    test('add person to project', async ({},testInfo) => {
+    test('add multiple persons to project', async ({},testInfo) => {
         const people = new PeoplePage(page);
         await navmenu.goToPage('people')
         await expect(page).toHaveURL(`${testInfo.project.use.baseURL}`+'/firm/people')

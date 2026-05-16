@@ -12,7 +12,7 @@ let loginpage;
 let navmenu;
 let envdata;
 
-test.describe('Add people to project',()=>{
+test.describe('People Panle Resume',()=>{
     test.beforeEach(async({}) =>{
         browser = await chromium.launch();
         context = await browser.newContext();

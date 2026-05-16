@@ -15,7 +15,7 @@ let envData;
 let projectpage;
 let projectdashboardpage;
 
-test.describe('Project Girdview',() =>{
+test.describe('Project dashboard',() =>{
     test.beforeAll(async() =>{
         browser = await chromium.launch({headless: false})
         context = await browser.newContext()

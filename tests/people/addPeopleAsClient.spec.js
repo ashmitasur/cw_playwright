@@ -12,7 +12,7 @@ let loginpage;
 let navmenu;
 let envdata;
 
-test.describe('Client on project',()=>{
+test.describe('Client on project Card',()=>{
     test.beforeEach(async({})=>{
         browser = await chromium.launch()
         context = await browser.newContext()

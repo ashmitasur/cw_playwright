@@ -12,7 +12,7 @@ let loginpage;
 let navmenu;
 let envData;
 
-test.describe('Add Deal', ()=>{
+test.describe('Export Deal', ()=>{
     test.beforeEach(async({})=>{
         browser = await chromium.launch({ headless: false})
         context = await browser.newContext()
@@ -26,7 +26,7 @@ test.describe('Add Deal', ()=>{
         await loginpage.gotoAccountsPage(accountUrl)
         await loginpage.selectFirm(firmname)
     })
-    test('Add new deal',async ({},testInfo)=>{
+    test('Export deal',async ({},testInfo)=>{
         navmenu = new NavigationPage(page)
         const{dealName,dealCompany} = staticdata
         await navmenu.goToPage('deals')

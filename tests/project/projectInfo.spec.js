@@ -13,7 +13,7 @@ let navmenu;
 let envData;
 let projectpage;
 
-test.describe('Project view', () => {
+test.describe('Project Info', () => {
     test.beforeAll(async()=>{
     browser = await chromium.launch({ headless: false})
     context = await browser.newContext()
