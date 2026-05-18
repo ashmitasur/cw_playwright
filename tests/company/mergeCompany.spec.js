@@ -12,7 +12,7 @@ let loginpage;
 let navmenu;
 let envData;
 
-test.describe('Export Company', ()=>{
+test.describe('Merge Companies', ()=>{
     test.beforeEach(async({})=>{
         browser = await chromium.launch({ headless: false})
         context = await browser.newContext()
@@ -26,13 +26,14 @@ test.describe('Export Company', ()=>{
         await loginpage.gotoAccountsPage(accountUrl)
         await loginpage.selectFirm(firmname)
     })
-    test('Export companies',async ({},testInfo)=>{
+    test('Merge Companies',async ({},testInfo)=>{
         navmenu = new NavigationPage(page)
         await navmenu.goToPage('companies')
         await expect(page).toHaveURL(`${testInfo.project.use.baseURL}`+'/firm/companies')
+        const {searchToMergeCompany} = staticdata
         const companypage = new CompanyPage(page)
-        await companypage.exportCompany()
-        await expect(page.getByText("We have started to export your companies to excel. We will email you when the job finishes."))
+        await companypage.mergeCompany(searchToMergeCompany)
+        await expect(page.getByText("companies merged"))
         .toBeVisible({timeout:15000});
     })
     // test.afterAll(async({},testInfo) =>{

@@ -16,7 +16,10 @@ export class CompanyPage{
         this.editOption = page.locator('[data-testid="edit"]');
         this.replyOption = page.locator('[data-testid="reply"]');
         this.deleteOption = page.locator('[data-testid="delete"]');
-        this.deleteDialog = page.getByRole('alertdialog')        
+        this.deleteDialog = page.getByRole('alertdialog');
+        this.searchInput = page.locator('.companies__header input#text-search-input');    
+        this.mergeBtn = page.locator('[title="Merge"]');
+        this.checkboxes = page.locator('.list-view__tbody button[role="checkbox"]')  
     }
     async addCompany(companyName,companySubtitle) {
         await this.threeDotsMenu.click();
@@ -37,6 +40,20 @@ export class CompanyPage{
         await expect(this.page.getByRole("menu")).toBeVisible()
         await this.exportCompanyBtn.click()
         await this.formAddBtn.click()
+    }
+    async mergeCompany(companyName){
+        await this.searchInput.fill(companyName);
+        await this.searchInput.press('Enter');
+        await this.searchInput.press('Enter');
+        await this.page.waitForSelector('.list-view__tbody button[role="checkbox"]')
+        const count = await this.checkboxes.count();
+        console.log(count)
+        for (let i = 0; i < count; i++) {
+            await this.checkboxes.nth(i).click();
+            await expect(this.checkboxes.nth(i)).toBeChecked()
+        }
+        await this.mergeBtn.click();
+        await this.saveButton.click();    
     }
     async selectCompanyByName(companyName) {
         await this.companyList.filter({ hasText: companyName }).click();
