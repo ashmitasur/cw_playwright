@@ -36,7 +36,7 @@ export class CompanyPage{
         await this.threeDotsMenu.click()
         await expect(this.page.getByRole("menu")).toBeVisible()
         await this.exportCompanyBtn.click()
-        await this.formBtn.click()
+        await this.formAddBtn.click()
     }
     async selectCompanyByName(companyName) {
         await this.companyList.filter({ hasText: companyName }).click();
