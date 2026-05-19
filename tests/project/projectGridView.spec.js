@@ -25,7 +25,7 @@ test.describe('Project Girdview',() =>{
         loginpage = new LogInPage(page)
         navmenu = new NavigationPage(page)
         projectpage = new ProjectPage(page)
-        projectgridview = new ProjectGridViewPage(page)
+        
         const env = process.env.PLATFORM
         envData = credentials[env]
         const {firmname,accountUrl} = envData
@@ -41,9 +41,10 @@ test.describe('Project Girdview',() =>{
         const newPage = await projectpage.openProject(context,searchProject)
         await projectpage.openSection(newPage,'grid_view')
         expect(await newPage.url()).toContain('grid_view') 
-        await projectgridview.addCandidate(newPage,candidateName)  
+        projectgridview = new ProjectGridViewPage(newPage)
+        await projectgridview.addCandidate(candidateName)  
         await expect(newPage.getByText('Candidate added')).toBeVisible()
-        await projectgridview.removeCandidate(newPage)
+        await projectgridview.removeCandidate()
         await expect(newPage.getByText('candidate has been removed from the project.')).toBeVisible()
     })
 

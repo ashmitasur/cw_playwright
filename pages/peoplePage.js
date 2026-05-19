@@ -118,13 +118,6 @@ export class PeoplePage {
     // Handle CKEditor
     await this.ckEditor.click();
     await this.ckEditor.type(note);
-    // await this.page.evaluate((note) => {
-    //   const el = document.querySelector('.ck-content[contenteditable="true"]');
-    //   if (el && el.ckeditorInstance) {
-    //     el.ckeditorInstance.setData(note);
-    //   }
-    // }, note);
-
     await this.saveButton.click();
   }
 

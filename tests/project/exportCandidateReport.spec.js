@@ -25,7 +25,7 @@ test.describe('Project CandidateView',() =>{
         loginpage = new LogInPage(page)
         navmenu = new NavigationPage(page)
         projectpage = new ProjectPage(page)
-        candidatepage = new CandidatePage(page)
+        
         const env = process.env.PLATFORM
         envData = credentials[env]
         const {firmname,accountUrl} = envData
@@ -41,7 +41,8 @@ test.describe('Project CandidateView',() =>{
         const newPage = await projectpage.openProject(context,projectWithCandidate)
         await projectpage.openSection(newPage,'candidates')
         expect(await newPage.url()).toContain('candidates') 
-        await candidatepage.exportReport(newPage);
+        const candidatepage = new CandidatePage(newPage)
+        await candidatepage.exportReport();
         await expect(newPage.locator('.message > strong'))
         .toContainText('An email with a link to download the report');
         
