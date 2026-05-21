@@ -10,6 +10,7 @@ export class PeoplePanel {
     this.positionCard = page.locator("#position-overview-card");
     this.educationCard = page.locator("#education-overview-card")
     this.clientOnProjectCard = page.locator("#clientOnProjects-overview-card")
+    this.dealCard = page.locator('#personDeals-overview-card')
     this.cardExpandCollapseButton = page.locator('.card-view__collapse-button');
     this.collapsedCardAccordian='.card-view__header--collapsed'
     this.addRecordBtnLocator = '.add-record-btn';
@@ -19,7 +20,6 @@ export class PeoplePanel {
     this.resumeparseCheckbox = page.getByLabel('Parse');
     this.cardAddButton = '[type="submit"]';
   }
-
 
   async searchPeople(searchPeopleByEmail){
     // Enter search text and press Enter twice
@@ -33,14 +33,12 @@ export class PeoplePanel {
 
     await expect(this.personInList.first()).toBeVisible();
   }
-
   async openPeoplePanle(searchPeople) {
     const person = this.page.locator('.people-grid-view__person-name__link', {hasText: searchPeople})
     .first();
     await expect(person).toBeVisible();
     await person.click();
-  } 
-
+  }
   async addPeopleToProject(searchToSelectProject){
     const addBtn = this.candidateInProjectCrad.locator(this.addRecordBtnLocator);
     await expect(addBtn).toBeVisible();
@@ -48,7 +46,6 @@ export class PeoplePanel {
     await this.searchNSelect(searchToSelectProject)
     await this.page.locator('[data-testid="filter-dropdown-content-buttons-apply-button"]').click()
   }
-
   async searchNSelect(searchToSelectProject){
     await expect(this.page.locator('.search-select-multi.relative.search-list-dropdown__search'))
     .toBeVisible()
@@ -56,7 +53,6 @@ export class PeoplePanel {
     await expect(this.page.locator('.search-list-dropdown__search')).toBeVisible()
     await this.page.locator('.search-list-dropdown__search > div > ul > li:nth-child(1)').click()
   }
-
   async uploadResume(filepath,title){
     const addBtn = this.documentCard.locator(this.addRecordBtnLocator);
     await expect(addBtn).toBeVisible();
@@ -69,7 +65,6 @@ export class PeoplePanel {
     await this.documentCard.locator(this.cardAddButton).click()
     await expect(this.documentCard.locator(this.cardAddButton)).toBeDisabled()
   }
-
   async addPosition(positionTitle,companyName){
     const addBtn = this.positionCard.locator(this.addRecordBtnLocator);
     await expect(addBtn).toBeVisible();
@@ -81,7 +76,6 @@ export class PeoplePanel {
     await this.positionCard.locator(this.cardAddButton).click()
     await expect(this.positionCard.locator(this.cardAddButton)).toBeDisabled()
   }
-
   async addPeopleEducation(degree,schoolName){
     const addBtn = this.educationCard.locator(this.addRecordBtnLocator);
     await expect(addBtn).toBeVisible();
@@ -91,16 +85,13 @@ export class PeoplePanel {
     await this.page.locator('input[name="degree"]').fill(degree)
     await this.educationCard.locator(this.cardAddButton).click()
     await expect(this.educationCard.locator(this.cardAddButton)).toBeDisabled()
-  }  
-
+  } 
   async singleSelectDD(container){
     await container.locator('.list-items > [role="option"]:nth-child(1)').click()
   }
-
   async closePeoplePanle(){
     await this.page.locator('[class="side-panel__controls__item close-item"]').click()
   }
-
   async sendClientInvitation(searchToSelectProject){
     const addBtn = this.clientOnProjectCard.locator(this.addRecordBtnLocator);
     await expect(addBtn).toBeVisible();
@@ -111,7 +102,13 @@ export class PeoplePanel {
     await expect(this.clientOnProjectCard.locator(this.cardAddButton)).toBeEnabled()
     await this.clientOnProjectCard.locator(this.cardAddButton).click()
   }
-
+  async addPeopleToDeal(){
+    const addBtn = this.dealCard.locator(this.addRecordBtnLocator);
+    await expect(addBtn).toBeVisible();
+    await addBtn.click();
+    await this.page.locator('.search-list-dropdown__search > div > ul > li:nth-child(2)').click()
+    await this.page.locator('[data-testid="filter-dropdown-content-buttons-apply-button"]').click()
+  }
   async deletePeople(){
     await this.page.locator('.secondary-delete-button').click();
     await this.page.locator('input.delete-confirm-dialog__confirmation-input').type('DELETE');
