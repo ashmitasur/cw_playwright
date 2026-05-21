@@ -39,10 +39,9 @@ export class ProjectPage{
     async selectFirstNProjects(count) {
         const checkboxes = this.page.locator('div.shadcn-checkbox > button[type="button"]');
         const total = await checkboxes.count();
-
         for (let i = 1; i <= count && i < total; i++) {
-        await checkboxes.nth(i).check();
-        await expect(checkboxes.nth(i)).toBeChecked();
+            await checkboxes.nth(i).check();
+            await expect(checkboxes.nth(i)).toBeChecked();
         }
     }
     async bulkEdit() {

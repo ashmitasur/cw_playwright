@@ -24,7 +24,6 @@ test.describe('Project dashboard',() =>{
         loginpage = new LogInPage(page)
         navmenu = new NavigationPage(page)
         projectpage = new ProjectPage(page)
-        projectdashboardpage = new ProjectDashboard(page)
         const env = process.env.PLATFORM
         envData = credentials[env]
         const {firmname,accountUrl} = envData
@@ -39,11 +38,12 @@ test.describe('Project dashboard',() =>{
         const{searchProject} = staticdata      
         const newPage = await projectpage.openProject(context,searchProject)
         await projectpage.openSection(newPage,'dashboard')
-        expect(await newPage.url()).toContain('dashboard')   
-        await projectdashboardpage.downloadProjectDashboardInPdf(newPage)
+        expect(await newPage.url()).toContain('dashboard')
+        projectdashboardpage = new ProjectDashboard(newPage)   
+        await projectdashboardpage.downloadProjectDashboardInPdf()
         await expect(newPage.getByText('Dashboard print is downloaded successfully.'))
         .toBeVisible({timeout:20000})
-        await projectdashboardpage.downloadProjectDashboardInImage(newPage)
+        await projectdashboardpage.downloadProjectDashboardInImage()
         await expect(newPage.getByText('Dashboard print is downloaded successfully.'))
         .toBeVisible({timeout:20000})
     })

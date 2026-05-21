@@ -21,7 +21,6 @@ export class ProjectGridViewPage{
         await uncheckbox.click();
         await this.page.locator("div[class='modal-title__main'] svg").click()                
     }
-
     async removeCandidate(){
         await this.selectAllCheckboxes.click()
         const statusDD = this.page.getByRole('button', { name: 'Status' })
@@ -31,5 +30,4 @@ export class ProjectGridViewPage{
         await this.doneButton.click()
 
     }
-
 }

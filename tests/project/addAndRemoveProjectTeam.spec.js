@@ -24,7 +24,7 @@ test.describe.serial('Project Team Member',() =>{
         loginpage = new LogInPage(page)
         navmenu = new NavigationPage(page)
         projectpage = new ProjectPage(page)
-        projectdashboardpage = new ProjectDashboard(page)
+        
         const env = process.env.PLATFORM
         envData = credentials[env]
         const {firmname,accountUrl} = envData
@@ -38,9 +38,10 @@ test.describe.serial('Project Team Member',() =>{
         await expect(page).toHaveURL(`${testInfo.project.use.baseURL}`+'/firm/projects/gridview')  
         const{searchProject,searchprojectMember} = staticdata      
         const newPage = await projectpage.openProject(context,searchProject)
+        projectdashboardpage = new ProjectDashboard(newPage)
         await projectpage.openSection(newPage,'dashboard')
         expect(await newPage.url()).toContain('dashboard')
-        await projectdashboardpage.addTeam(newPage,searchprojectMember)
+        await projectdashboardpage.addTeam(searchprojectMember)
     })
 
     test("Delete Team Member", async({},testInfo)=>{
@@ -48,9 +49,10 @@ test.describe.serial('Project Team Member',() =>{
         await expect(page).toHaveURL(`${testInfo.project.use.baseURL}`+'/firm/projects/gridview') 
         const{searchProject,searchprojectMember} = staticdata      
         const newPage = await projectpage.openProject(context,searchProject)
+         projectdashboardpage = new ProjectDashboard(newPage)
         await projectpage.openSection(newPage,'dashboard')
         expect(await newPage.url()).toContain('dashboard')
-        await projectdashboardpage.deleteTeam(newPage)
+        await projectdashboardpage.deleteTeam()
         await expect(newPage.getByText('Project user has been removed.')).toBeVisible()
     })
 
