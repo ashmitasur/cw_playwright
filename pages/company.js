@@ -20,6 +20,9 @@ export class CompanyPage{
         this.searchInput = page.locator('.companies__header input#text-search-input');    
         this.mergeBtn = page.locator('[title="Merge"]');
         this.checkboxes = page.locator('.list-view__tbody button[role="checkbox"]')  
+        this.addDocumentBtn = page.getByRole('button', {name: '+ Add Document'});
+        this.getDocumentList = page.locator('ul.document-card > li:nth-child(1)');
+        this.docDeleteBtn = page.getByTestId('active-form').getByRole('button', {name: 'Delete'});
     }
     async addCompany(companyName,companySubtitle) {
         await this.threeDotsMenu.click();
@@ -58,6 +61,23 @@ export class CompanyPage{
     async selectCompanyByName(companyName) {
         await this.companyList.filter({ hasText: companyName }).click();
     }
+    async addCompanyDoc(filepath){
+        await this.addDocumentBtn.click()
+        const fileChooserPromise = this.page.waitForEvent('filechooser')
+        // click the dropzone
+        await this.page.locator('.dz-message').click()
+        const fileChooser = await fileChooserPromise
+        await fileChooser.setFiles(filepath)
+        await this.formAddBtn.click()
+    }
+    async deleteCompanyDoc(){
+        await this.getDocumentList.click()        
+        await this.docDeleteBtn.click()
+        await expect(this.deleteDialog).toBeVisible();
+        await expect(this.deleteDialog).toContainText('Delete Document');
+        await this.deleteDialog.locator('.delete-confirm-btn').click();
+    }
+
     async openNotePanle(){
         await this.notePanleOpenBtn.click()
     }
