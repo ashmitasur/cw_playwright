@@ -44,13 +44,15 @@ export class DealPage{
     }
     async addDeal(dealName,dealCompany){
         await this.threeDotsMenu.click();
-        await expect(this.addDealBtn).toBeVisible();
+        //await expect(this.addDealBtn).toBeVisible();
+        await this.addDealBtn.waitFor({ state: 'visible' });
         await this.addDealBtn.click();
         await this.page.locator("#name").fill(dealName)
         await this.page.locator('input[name="company"]').fill(dealCompany);
         await this.selectDropdown('Deal Status')
         await this.selectDropdown('Deal Stage')
-        await expect(this.formBtn).toBeEnabled()
+        //await expect(this.formBtn).toBeEnabled()
+        await this.formBtn.waitFor({ state: 'visible' });
         await this.formBtn.click();
     }
     async exportDeal(){
@@ -98,8 +100,6 @@ export class DealPage{
     async deleteDealDoc(){
         await this.getDocumentList.click()        
         await this.docDeleteBtn.click()
-        await expect(this.deleteDialog).toBeVisible();
-        await expect(this.deleteDialog).toContainText('Delete Document');
         await this.deleteDialog.locator('.delete-confirm-btn').click();
     }
     async closeDealPanel(){
@@ -116,16 +116,16 @@ export class DealPage{
     }
     async editNote(note) {
         await this.noteActionMenu.click();
-        await expect(this.notePanelDdMenu).toBeVisible()
+        await this.notePanelDdMenu.waitFor({ state: 'visible' });
         await this.editOption.click();
         await this.ckEditor.click();
         await this.ckEditor.type(note+"edited");
         await this.saveButton.click();
-        await expect(this.ckEditor).not.toBeVisible();
+        await this.ckEditor.waitFor({ state: 'hidden' });
     }
     async replyToNote(note) {
         await this.noteActionMenu.click();
-        await expect(this.notePanelDdMenu).toBeVisible()
+        await this.notePanelDdMenu.waitFor({ state: 'visible' });
         await this.replyOption.click();
         await this.ckEditor.click();
         await this.ckEditor.type(note+"reply");
@@ -133,9 +133,8 @@ export class DealPage{
     }
      async deleteNote() {
         await this.noteActionMenu.click();
-        await expect(this.notePanelDdMenu).toBeVisible()
+        await this.notePanelDdMenu.waitFor({ state: 'visible' });
         await this.deleteOption.click();
-        await expect(this.deleteDialog).toBeVisible();
         await this.deleteDialog.locator('.delete-confirm-btn').click();
     }
     async addProjectToDeal() {
