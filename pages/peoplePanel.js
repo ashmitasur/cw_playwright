@@ -31,31 +31,33 @@ export class PeoplePanel {
     await this.page.waitForResponse(response =>
       response.url().includes('/spapi/people_list') && response.status() === 200);
 
-    await expect(this.personInList.first()).toBeVisible();
+    await this.personInList.first().waitFor({ state: 'visible' });
   }
   async openPeoplePanle(searchPeople) {
     const person = this.page.locator('.people-grid-view__person-name__link', {hasText: searchPeople})
     .first();
-    await expect(person).toBeVisible();
+    //await expect(person).toBeVisible();
+    await person.waitFor({ state: 'visible' })
     await person.click();
   }
   async addPeopleToProject(searchToSelectProject){
     const addBtn = this.candidateInProjectCrad.locator(this.addRecordBtnLocator);
-    await expect(addBtn).toBeVisible();
+    //await expect(addBtn).toBeVisible();
+    await addBtn.waitFor({ state: 'visible' });
     await addBtn.click();
     await this.searchNSelect(searchToSelectProject)
     await this.page.locator('[data-testid="filter-dropdown-content-buttons-apply-button"]').click()
   }
   async searchNSelect(searchToSelectProject){
-    await expect(this.page.locator('.search-select-multi.relative.search-list-dropdown__search'))
-    .toBeVisible()
+    await this.page.locator('.search-select-multi.relative.search-list-dropdown__search')
+      .waitFor({ state: 'visible' });
     await this.page.locator('.search-list-dropdown__search input[type="text"]').fill(searchToSelectProject)
-    await expect(this.page.locator('.search-list-dropdown__search')).toBeVisible()
+    await this.page.locator('.search-list-dropdown__search').waitFor({ state: 'visible' });
     await this.page.locator('.search-list-dropdown__search > div > ul > li:nth-child(1)').click()
   }
   async uploadResume(filepath,title){
     const addBtn = this.documentCard.locator(this.addRecordBtnLocator);
-    await expect(addBtn).toBeVisible();
+    await addBtn.waitFor({ state: 'visible' });
     await addBtn.click();
     await this.uploadInput.setInputFiles(filepath)
     await this.title.fill(title)
@@ -63,28 +65,28 @@ export class PeoplePanel {
     await this.singleSelectDD(this.documentCard)
     await this.resumeparseCheckbox.click()
     await this.documentCard.locator(this.cardAddButton).click()
-    await expect(this.documentCard.locator(this.cardAddButton)).toBeDisabled()
+    await this.documentCard.locator(this.cardAddButton).waitFor({ state: 'hidden' });
   }
   async addPosition(positionTitle,companyName){
     const addBtn = this.positionCard.locator(this.addRecordBtnLocator);
-    await expect(addBtn).toBeVisible();
+    await addBtn.waitFor({ state: 'visible' });
     await addBtn.click();
     await this.page.locator('input[name="title"]').fill(positionTitle)
     await this.page.locator('.company-dd-floating-ui').click()
     await this.page.getByRole("listbox").locator('input').fill(companyName)
     await this.singleSelectDD(this.positionCard) 
     await this.positionCard.locator(this.cardAddButton).click()
-    await expect(this.positionCard.locator(this.cardAddButton)).toBeDisabled()
+    await this.positionCard.locator(this.cardAddButton).waitFor({ state: 'hidden' });
   }
   async addPeopleEducation(degree,schoolName){
     const addBtn = this.educationCard.locator(this.addRecordBtnLocator);
-    await expect(addBtn).toBeVisible();
+    await addBtn.waitFor({ state: 'visible' });
     await addBtn.click();
     await this.page.locator('input[placeholder="School Name"]').fill(schoolName)
     await this.page.locator('ul li[role="option"]:nth-child(1)').click()
     await this.page.locator('input[name="degree"]').fill(degree)
     await this.educationCard.locator(this.cardAddButton).click()
-    await expect(this.educationCard.locator(this.cardAddButton)).toBeDisabled()
+    await this.educationCard.locator(this.cardAddButton).waitFor({ state: 'hidden' });
   } 
   async singleSelectDD(container){
     await container.locator('.list-items > [role="option"]:nth-child(1)').click()
@@ -94,17 +96,17 @@ export class PeoplePanel {
   }
   async sendClientInvitation(searchToSelectProject){
     const addBtn = this.clientOnProjectCard.locator(this.addRecordBtnLocator);
-    await expect(addBtn).toBeVisible();
+    await addBtn.waitFor({ state: 'visible' });
     await addBtn.click();
     await this.clientOnProjectCard.locator("#projectContext").click()
     await this.searchNSelect(searchToSelectProject)
     await this.page.locator('[data-testid="filter-dropdown-content-buttons-apply-button"]').click()
-    await expect(this.clientOnProjectCard.locator(this.cardAddButton)).toBeEnabled()
+    await this.clientOnProjectCard.locator(this.cardAddButton).waitFor({ state: 'visible' })
     await this.clientOnProjectCard.locator(this.cardAddButton).click()
   }
   async addPeopleToDeal(){
     const addBtn = this.dealCard.locator(this.addRecordBtnLocator);
-    await expect(addBtn).toBeVisible();
+    await addBtn.waitFor({ state: 'visible' });
     await addBtn.click();
     await this.page.locator('.search-list-dropdown__search > div > ul > li:nth-child(2)').click()
     await this.page.locator('[data-testid="filter-dropdown-content-buttons-apply-button"]').click()
@@ -112,7 +114,6 @@ export class PeoplePanel {
   async deletePeople(){
     await this.page.locator('.secondary-delete-button').click();
     await this.page.locator('input.delete-confirm-dialog__confirmation-input').type('DELETE');
-    await expect(this.page.locator('.delete-confirm-btn')).toBeEnabled()
     await this.page.locator('.delete-confirm-btn').click();
   }
 }

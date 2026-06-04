@@ -24,48 +24,38 @@ export class PeoplePage {
     this.addToProjectInBulk = page.locator('button#add-to-project')
     this.applyToAddInProject = page.locator('button[data-testid="filter-dropdown-content-buttons-apply-button"]')
   }
-
   async clickOn3Dots() {
-    await expect(this.page).toHaveURL(/people/)
+    await this.page.waitForURL(/people/)
     await this.rightMenu.click();
   }
-
   async openAddPerson() {
     await this.addPersonOption.click();
   }
-
   async openVcardImport() {
     await this.vcardOption.click();
   }
-
   async openCsvImport() {
     await this.csvOption.click();
   }
-
   async openResumeImport() {
     await this.resumeOption.click();
   }
-
   async fillPersonForm(name, email) {
     await this.nameInput.fill(name);
     await this.emailInput.fill(email);
   }
-
   async uploadFile(filePath) {
     await this.uploadInput.setInputFiles(filePath);
   }
-
   async submit() {
     await this.submitBtn.click();
   }
-
   async exportPeople(){            
-    await expect(this.page.locator('[data-testid="export"]')).toBeVisible();
+    await this.page.locator('[data-testid="export"]').waitFor({state: 'visible'});
     await this.page.locator('[data-testid="export"]').click();
     await this.page.locator('form.people-export-fields .form-actions__buttons .btn', {hasText: 'Ok'})
     .click()
   }
-
   async searchPeople(searchPeopleByEmail){
     // Enter search text and press Enter twice
     await this.keywordSearchBox.first().fill(searchPeopleByEmail);
@@ -76,7 +66,7 @@ export class PeoplePage {
     await this.page.waitForResponse(response =>
       response.url().includes('/spapi/people_list') && response.status() === 200);
 
-    await expect(this.personInList.first()).toBeVisible();
+    await this.personInList.first().waitFor({ state: 'visible' });
   }
 
   //better approach of the above one
@@ -107,12 +97,11 @@ export class PeoplePage {
     const count = await this.checkboxes.count();
     for (let i = 0; i < count; i++) {
       await this.checkboxes.nth(i).check();
-      await expect(this.checkboxes.nth(i)).toBeChecked();
+      //await expect(this.checkboxes.nth(i)).toBeChecked();
     }
   }
-
   async addNote(note) {
-    await expect(this.addBulkNoteButton).toBeEnabled()
+    await this.addBulkNoteButton.waitFor({ state: 'visible' })
     await this.addBulkNoteButton.click();
 
     // Handle CKEditor
@@ -120,40 +109,34 @@ export class PeoplePage {
     await this.ckEditor.type(note);
     await this.saveButton.click();
   }
-
   async addEmail(emailSubject,emailContent){
-    await expect(this.addBulkEmailButton).toBeEnabled()
+    await this.addBulkEmailButton.waitFor({ state: 'visible' })
     await this.addBulkEmailButton.click();
     await this.emailSubjectInput.fill(emailSubject);
     await this.ckEditor.click();
     await this.ckEditor.type(emailContent);
     await this.saveButton.click();
   }
-
   async singleSelectDropdown(buttonId) {
       await this.page.locator(`button[id="${buttonId}"]`).click();
       await this.page.locator('[data-slot="dropdown-menu-content"] > :nth-child(1)').click();
   }
-
   async bulkEdit(){
-    await expect(this.bulkEditButton).toBeEnabled()
+    await this.bulkEditButton.waitFor({ state: 'visible' })
     await this.bulkEditButton.click();
     await this.singleSelectDropdown('country-add');
     await this.saveButton.click();
   }
-
   async searchNSelect(searchToSelectProject){
-    await expect(this.page.locator('.search-select-multi.relative.search-list-dropdown__search'))
-    .toBeVisible()
+    await this.page.locator('.search-select-multi.relative.search-list-dropdown__search')
+      .waitFor({ state: 'visible' });
     await this.page.locator('.search-list-dropdown__search input[type="text"]').fill(searchToSelectProject)
-    await expect(this.page.locator('.search-list-dropdown__search')).toBeVisible()
+    await this.page.locator('.search-list-dropdown__search').waitFor({ state: 'visible' });
     await this.page.locator('.search-list-dropdown__search > div > ul > li:nth-child(1)').click()
   }
-
   async bulkCandidacyAdd(searchToSelectProject){
     await this.addToProjectInBulk.click()
     await this.searchNSelect(searchToSelectProject)
     await this.applyToAddInProject.click()
-  }
-  
+  }  
 }

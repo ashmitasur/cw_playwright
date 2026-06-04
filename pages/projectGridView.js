@@ -13,9 +13,9 @@ export class ProjectGridViewPage{
     async addCandidate(candidateName){
         await this.addButton.click()
         await this.quickSearchButton.click()
-        await expect(this.candidateList).toBeVisible()
+        await this.candidateList.waitFor({state: 'visible'})
         const checkboxes = this.checkboxes;
-        await expect(checkboxes.first()).toBeVisible();
+        await checkboxes.first().waitFor({state: 'visible'})
         const uncheckbox = this.page.locator('ul.search-candidates__list li', {hasText: candidateName})
         .locator('button[role="checkbox"][data-state="unchecked"]');
         await uncheckbox.click();

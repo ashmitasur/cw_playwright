@@ -27,15 +27,15 @@ export class ProjectDashboard{
         await this.page.locator('.form-actions__buttons > .pri-button').click();
     }
     async searchNSelect(searchPeople){
-        await expect(this.page.locator('.search-select-multi.relative.search-list-dropdown__search'))
-        .toBeVisible()
+        await this.page.locator('.search-select-multi.relative.search-list-dropdown__search')
+        .waitFor({state: 'visible'})
         await this.page.locator('.search-list-dropdown__search input[type="text"]').fill(searchPeople)
-        await expect(this.page.locator('.search-list-dropdown__search')).toBeVisible()
+        await this.page.locator('.search-list-dropdown__search').waitFor({state: 'visible'})
         await this.page.locator('.search-list-dropdown__search > div > ul > li:nth-child(1)').click()
     }
     async addTeam(searchPeople){
         await this.addTeamMember.click()
-        await expect(this.addTeamPopUp).toBeVisible()
+        await this.addTeamPopUp.waitFor({state: 'visible'})
         await this.searchNSelect(searchPeople)
         const members = this.eachTeamMember;
         // capture count before
@@ -44,12 +44,12 @@ export class ProjectDashboard{
         // wait until count increases
         await expect(members).toHaveCount(initialCount + 1);
         await this.eachTeamMember.last().hover()
-        await expect(this.toolTip).toBeVisible();
-        await expect(this.toolTip.getByText(searchPeople)).toBeVisible();
+        await this.toolTip.waitFor({state: 'visible'})
+        await this.toolTip.getByText(searchPeople).waitFor({state: 'visible'})
     }
     async deleteTeam(){
         await this.eachTeamMember.last().hover()
-        await expect(this.toolTip).toBeVisible();
+        await this.toolTip.waitFor({state: 'visible'})
         await this.page.locator('.remove-icon').click();
         await this.page.locator('.delete-button').click();
     }

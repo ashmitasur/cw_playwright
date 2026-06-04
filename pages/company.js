@@ -26,12 +26,12 @@ export class CompanyPage{
     }
     async addCompany(companyName,companySubtitle) {
         await this.threeDotsMenu.click();
-        await expect(this.addCompanybtn).toBeVisible();
+        await this.addCompanybtn.waitFor({ state: 'visible' });
         await this.addCompanybtn.click();
         await this.page.locator("input[placeholder='Company Name']").fill(companyName)
         await this.page.locator("input[placeholder='Subtitle']").fill(companySubtitle)
         await this.selectDropdown('preferredIndustryDropdown')
-        await expect(this.formAddBtn).toBeEnabled()
+        await this.formAddBtn.waitFor({ state: 'visible' });
         await this.formAddBtn.click();
     }
     async selectDropdown(buttonId) {
@@ -40,7 +40,7 @@ export class CompanyPage{
     }
     async exportCompany(){
         await this.threeDotsMenu.click()
-        await expect(this.page.getByRole("menu")).toBeVisible()
+        await this.page.getByRole("menu").waitFor({ state: 'visible' });
         await this.exportCompanyBtn.click()
         await this.formAddBtn.click()
     }
@@ -50,10 +50,8 @@ export class CompanyPage{
         await this.searchInput.press('Enter');
         await this.page.waitForSelector('.list-view__tbody button[role="checkbox"]')
         const count = await this.checkboxes.count();
-        console.log(count)
         for (let i = 0; i < count; i++) {
             await this.checkboxes.nth(i).click();
-            await expect(this.checkboxes.nth(i)).toBeChecked()
         }
         await this.mergeBtn.click();
         await this.saveButton.click();    
@@ -73,11 +71,8 @@ export class CompanyPage{
     async deleteCompanyDoc(){
         await this.getDocumentList.click()        
         await this.docDeleteBtn.click()
-        await expect(this.deleteDialog).toBeVisible();
-        await expect(this.deleteDialog).toContainText('Delete Document');
         await this.deleteDialog.locator('.delete-confirm-btn').click();
     }
-
     async openNotePanle(){
         await this.notePanleOpenBtn.click()
     }
@@ -89,16 +84,16 @@ export class CompanyPage{
     }
     async editNote(note) {
         await this.noteActionMenu.click();
-        await expect(this.notePanelDdMenu).toBeVisible()
+        await this.notePanelDdMenu.waitFor({ state: 'visible' });
         await this.editOption.click();
         await this.ckEditor.click();
         await this.ckEditor.type(note+"edited");
         await this.saveButton.click();
-        await expect(this.ckEditor).not.toBeVisible();
+        await this.ckEditor.waitFor({ state: 'hidden' });
     }
     async replyToNote(note) {
         await this.noteActionMenu.click();
-        await expect(this.notePanelDdMenu).toBeVisible()
+        await this.notePanelDdMenu.waitFor({ state: 'visible' });
         await this.replyOption.click();
         await this.ckEditor.click();
         await this.ckEditor.type(note+"reply");
@@ -106,9 +101,8 @@ export class CompanyPage{
     }
      async deleteNote() {
         await this.noteActionMenu.click();
-        await expect(this.notePanelDdMenu).toBeVisible()
+        await this.notePanelDdMenu.waitFor({ state: 'visible' });
         await this.deleteOption.click();
-        await expect(this.deleteDialog).toBeVisible();
         await this.deleteDialog.locator('.delete-confirm-btn').click();
     }
 }

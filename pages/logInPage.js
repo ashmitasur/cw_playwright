@@ -8,26 +8,20 @@ export class LogInPage{
         this.logoutButton = page.locator("a[href='/logout']")
         this.firmNameLink = page.locator('[data-testid="firm-redirect-link"]')
     }
-
     async gotoLoginPage(url){
         await this.page.goto(url)
     }
-
     async gotoAccountsPage(accountUrl){
         await this.page.goto(accountUrl)
     }
-
-
     async login(email,password){
         await this.emailInput.fill(email)
         await this.passwordInput.fill(password)
         await this.submitButton.click()
     }
-
     async selectFirm(firmname) {
         await this.firmNameLink.filter({ hasText: firmname }).click()
     }
-
     async logout(){
         await this.profileIcon.click()
         if (await this.logoutButton.isVisible()) {
