@@ -3,7 +3,7 @@ import { LogInPage } from '../../pages/logInPage';
 import { credentials } from '../../testData/credentials';
 import { staticdata } from '../../testData/staticdata';
 import { NavigationPage } from '../../pages/navigationPage';
-import { CompanyPage } from '../../pages/company';
+import { CompanyPage } from '../../pages/companyPage';
 
 let browser;
 let context;

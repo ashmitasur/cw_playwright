@@ -23,6 +23,12 @@ export class CompanyPage{
         this.addDocumentBtn = page.getByRole('button', {name: '+ Add Document'});
         this.getDocumentList = page.locator('ul.document-card > li:nth-child(1)');
         this.docDeleteBtn = page.getByTestId('active-form').getByRole('button', {name: 'Delete'});
+        this.addBoardMemberBtn = page.getByRole('button', {name: '+ Add Board Member'});
+        this.boardMemberNameInput = page.locator('input[placeholder="Board Member Name"]')
+        this.selectMemberDD = page.locator('.input-groups ul li').first()
+        this.startMonth = page.locator('#startMonth');
+        this.startYear = page.locator('#startYear');
+        this.firstElement = page.locator('[role="menuitem"]').first();
     }
     async addCompany(companyName,companySubtitle) {
         await this.threeDotsMenu.click();
@@ -99,10 +105,20 @@ export class CompanyPage{
         await this.ckEditor.type(note+"reply");
         await this.saveButton.click();
     }
-     async deleteNote() {
+    async deleteNote() {
         await this.noteActionMenu.click();
         await this.notePanelDdMenu.waitFor({ state: 'visible' });
         await this.deleteOption.click();
         await this.deleteDialog.locator('.delete-confirm-btn').click();
+    }
+    async addBoardMember(personName){
+        await this.addBoardMemberBtn.click()
+        await this.boardMemberNameInput.fill(personName)
+        await this.startMonth.click()
+        await this.firstElement.click()
+        await this.startYear.click()
+        await this.firstElement.click()
+        await this.saveButton.click()
+
     }
 }
