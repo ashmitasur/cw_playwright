@@ -28,15 +28,13 @@ test.describe('Company Document', ()=>{
     })
     test('Add and Delete Company Doc',async ({},testInfo)=>{
         navmenu = new NavigationPage(page)
-        const{company} = staticdata
+        const{company,searchPeople} = staticdata
         await navmenu.goToPage('companies')
         await expect(page).toHaveURL(`${testInfo.project.use.baseURL}`+'/firm/companies')
         const companypage = new CompanyPage(page)
         await companypage.selectCompanyByName(company)
-        await companypage.addCompanyDoc('tests/uploadfiles/AWS Architecture - 2025.docx')     
-        await expect(page.getByText('Company attachment has been created.')).toBeVisible({timeout:20000});
-        await companypage.deleteCompanyDoc()
-        await expect(page.getByText('has been deleted.')).toBeVisible({timeout:10000});
+        await companypage.addBoardMember(searchPeople)  
+        await expect(page.getByText('board member created.')).toBeVisible({timeout:10000});        
         //await dealpage.closeDealPanel()
         
     })
