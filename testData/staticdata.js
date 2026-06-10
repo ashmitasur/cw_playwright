@@ -1,6 +1,8 @@
 export const staticdata = {
     personName: `Test Person ${Date.now()}`,
     personEmail: `ashmita+${Date.now()}@clockworkrecruiting.com`,
+    userEmail: `ashmita+user${Date.now()}@clockworkrecruiting.com`,
+    userName: `Ashmita user${Date.now()}`,
     projectName: `Test Project ${Date.now()}`,
     searchProject: 'Central Communications Assistant',
     company: 'AIW (AI Workspace)',
