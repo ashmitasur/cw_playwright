@@ -1,8 +1,9 @@
+const timestamp = Date.now();
 export const staticdata = {
     personName: `Test Person ${Date.now()}`,
     personEmail: `ashmita+${Date.now()}@clockworkrecruiting.com`,
-    userEmail: `ashmita+user${Date.now()}@clockworkrecruiting.com`,
-    userName: `Ashmita user${Date.now()}`,
+    userEmail: `ashmita+user${timestamp}@clockworkrecruiting.com`,
+    userName: `Ashmita Firm User${timestamp}`,
     projectName: `Test Project ${Date.now()}`,
     searchProject: 'Central Communications Assistant',
     company: 'AIW (AI Workspace)',

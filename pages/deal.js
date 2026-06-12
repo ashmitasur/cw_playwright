@@ -44,7 +44,6 @@ export class DealPage{
     }
     async addDeal(dealName,dealCompany){
         await this.threeDotsMenu.click();
-        //await expect(this.addDealBtn).toBeVisible();
         await this.addDealBtn.waitFor({ state: 'visible' });
         await this.addDealBtn.click();
         await this.page.locator("#name").fill(dealName)
