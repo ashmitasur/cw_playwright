@@ -24,11 +24,14 @@ test.describe('Firm Settings Actions', ()=>{
         await loginpage.gotoAccountsPage(accountUrl)
         await loginpage.selectFirm(firmname)
     })
-    test('Add Firm User', async({},testInfo)=>{
+    test('Add and Deactivate Firm User', async({},testInfo)=>{
         const firmsettingspage = new FirmSettingsPage(page)
         const{userName,userEmail} = staticdata
+        await firmsettingspage.goToFirmSettings()
         await firmsettingspage.addAdminUser(userName,userEmail)
         await expect(page.getByText('Your changes have been saved.')).toBeVisible({timeout:10000})
+        await firmsettingspage.deactivateAdminUser(userEmail)
+        await expect(page.getByText('The user has been deactivated.')).toBeVisible({timeout:10000})
     })
 
     // test.afterAll(async({},testInfo) =>{
