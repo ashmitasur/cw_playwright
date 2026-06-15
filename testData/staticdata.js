@@ -7,7 +7,7 @@ export const staticdata = {
     projectName: `Test Project ${Date.now()}`,
     searchProject: 'Central Communications Assistant',
     company: 'AIW (AI Workspace)',
-    companySearch: 'Kreeti',
+    companySearch: 'Kreeti Technologies Pvt. Ltd',
     location: 'New York',
     testNote: "This note have been added by playwright automation script.",
     dealName: `TestDeal_${Date.now()}`,

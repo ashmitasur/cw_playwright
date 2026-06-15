@@ -29,6 +29,7 @@ export class CompanyPage{
         this.startMonth = page.locator('#startMonth');
         this.startYear = page.locator('#startYear');
         this.firstElement = page.locator('[role="menuitem"]').first();
+        this.companyProfilecard = page.locator('[data-testid="companyProfile"]')
     }
     async addCompany(companyName,companySubtitle) {
         await this.threeDotsMenu.click();
@@ -42,7 +43,11 @@ export class CompanyPage{
     }
     async selectDropdown(buttonId) {
         await this.page.locator(`button[id="${buttonId}"]`).click();
-        await this.page.locator('.search-select ul li').nth(0).click();
+        await this.page.locator('.search-select ul li').nth(1).click();
+    }
+    async searchSelectDropdown(buttonId) {
+        await this.page.locator(`button[id="${buttonId}"]`).click();
+        await this.page.locator('.search-select-multi ul li').nth(1).click();
     }
     async exportCompany(){
         await this.threeDotsMenu.click()
@@ -78,6 +83,16 @@ export class CompanyPage{
         await this.getDocumentList.click()        
         await this.docDeleteBtn.click()
         await this.deleteDialog.locator('.delete-confirm-btn').click();
+    }
+    async updateProfile(companySubtitle){
+        await this.companyProfilecard.click()
+        await this.page.locator("input[placeholder='Subtitle']").fill(companySubtitle+' updated')
+        await this.selectDropdown('preferredIndustryDropdown')
+        await this.searchSelectDropdown('investors-dropdown')
+        await this.page.locator('[data-testid="filter-dropdown-content-buttons-apply-button"]')
+        .getByText('Apply').click()
+        await this.selectDropdown('fundingStageDropdown')
+        await this.saveButton.click()
     }
     async openNotePanle(){
         await this.notePanleOpenBtn.click()
